@@ -24,6 +24,7 @@ import {
   X, Activity,
   Building2
 } from 'lucide-react';
+import { Logo } from '@/components/common/Logo';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -84,14 +85,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className="hidden md:flex flex-col w-[260px] bg-[#070d1e] border-r border-cyan-500/10 shrink-0 sticky top-0 h-screen overflow-y-auto">
         {/* Brand */}
         <div className="px-5 pt-6 pb-5 border-b border-slate-800/60">
-          <Link href="/admin" className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-              <Activity className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <span className="font-extrabold text-sm tracking-tight bg-clip-text text-transparent bg-linear-to-r from-cyan-400 to-indigo-400">Janmitra AI</span>
-              <p className="text-[9px] text-cyan-400/80 uppercase tracking-widest font-black">Super Admin</p>
-            </div>
+          <Link href="/admin" className="block">
+            <Logo size="sm" subtitle="Super Admin Center" />
           </Link>
         </div>
 

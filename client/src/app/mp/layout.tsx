@@ -23,6 +23,7 @@ import {
   Landmark,
   ChevronRight
 } from 'lucide-react';
+import { Logo } from '@/components/common/Logo';
 import { FloatingCopilot } from '@/components/mp/FloatingCopilot';
 
 export default function MpLayout({ children }: { children: React.ReactNode }) {
@@ -80,14 +81,8 @@ export default function MpLayout({ children }: { children: React.ReactNode }) {
       <aside className="hidden md:flex flex-col w-[260px] bg-[#080b18] border-r border-[#1e293b]/30 shrink-0 sticky top-0 h-screen overflow-y-auto shadow-xl">
         {/* Brand */}
         <div className="px-5 pt-6 pb-5 border-b border-slate-800/50">
-          <Link href="/mp" className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-amber-500 to-amber-700 flex items-center justify-center shadow-lg shadow-amber-500/20">
-              <Landmark className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <span className="font-extrabold text-sm tracking-tight bg-clip-text text-transparent bg-linear-to-r from-amber-400 to-amber-200">Janmitra AI</span>
-              <p className="text-[9px] text-amber-500/60 uppercase tracking-widest font-bold">MP Dashboard</p>
-            </div>
+          <Link href="/mp" className="block">
+            <Logo size="sm" subtitle="MP Decision Portal" />
           </Link>
         </div>
 

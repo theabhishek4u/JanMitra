@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Janmitra AI - AI-Powered Constituency Development Planning Platform",
   description: "Helping MPs make data-driven development decisions through verified citizen requests and intelligent duplicate detection.",
+  icons: {
+    icon: "/logo-icon.svg",
+    shortcut: "/logo-icon.svg",
+    apple: "/logo-icon.svg"
+  }
 };
 
 export default function RootLayout({

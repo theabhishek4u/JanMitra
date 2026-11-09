@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="jmSaffron" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF7A00" />
+      <stop offset="100%" stop-color="#FFA84A" />
+    </linearGradient>
+    <linearGradient id="jmBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="50%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+    <linearGradient id="jmGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="jmGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#6366F1" stop-opacity="0.2" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#4F46E5" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Outer Shield / Rounded Polygon Background -->
+  <rect x="6" y="6" width="88" height="88" rx="24" fill="#0C1024" stroke="url(#jmBlue)" stroke-width="2.5" filter="url(#shadow)" />
+  
+  <!-- Subtle Grid Tech Matrix inside shield -->
+  <circle cx="50" cy="50" r="32" stroke="white" stroke-opacity="0.05" stroke-width="1" stroke-dasharray="2 3" />
+  
+  <!-- Dynamic Interlocking J & M Handshake Emblem -->
+  <!-- Left Wing / 'J' - Citizen Hand reach (Saffron to Indigo) -->
+  <path d="M 28 36 C 28 27, 40 25, 48 33 L 42 41 C 38 37, 34 38, 34 43 L 34 56 C 34 64, 42 66, 48 61 L 52 68 C 42 75, 28 71, 28 58 Z" 
+        fill="url(#jmSaffron)" />
+
+  <!-- Right Wing / 'M' - Mitra Support reach (Indigo to Cyan) -->
+  <path d="M 72 64 C 72 73, 60 75, 52 67 L 58 59 C 62 63, 66 62, 66 57 L 66 44 C 66 36, 58 34, 52 39 L 48 32 C 58 25, 72 29, 72 42 Z" 
+        fill="url(#jmBlue)" />
+
+  <!-- Central Bridge / Neural Connector (Jan + Mitra link) -->
+  <path d="M 40 48 L 60 52" stroke="url(#jmGreen)" stroke-width="4.5" stroke-linecap="round" />
+  <circle cx="50" cy="50" r="5.5" fill="#38BDF8" />
+  <circle cx="50" cy="50" r="2.5" fill="#FFFFFF" />
+
+  <!-- AI Sparkle Nodes -->
+  <circle cx="34" cy="36" r="2.5" fill="#FFB74D" />
+  <circle cx="66" cy="64" r="2.5" fill="#818CF8" />
+  <circle cx="64" cy="34" r="2" fill="#34D399" />
+  <circle cx="36" cy="66" r="2" fill="#38BDF8" />
+</svg>

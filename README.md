@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://via.placeholder.com/150/4f46e5/ffffff?text=Janmitra+AI" alt="Janmitra AI Logo" width="120" />
+  <img src="./client/public/logo-icon.svg" alt="Janmitra AI Logo" width="120" />
   <h1>🇮🇳 Janmitra AI (जनमित्र)</h1>
   <p><strong>AI-Powered Constituency Decision Intelligence & Execution Platform for Modern India</strong></p>
   

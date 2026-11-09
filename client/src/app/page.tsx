@@ -23,6 +23,7 @@ import {
 import { Hero } from '@/components/landing/Hero';
 import { Features } from '@/components/landing/Features';
 import { DemoWorkflow } from '@/components/landing/DemoWorkflow';
+import { Logo } from '@/components/common/Logo';
 import { Statistics } from '@/components/landing/Statistics';
 import { Testimonials } from '@/components/landing/Testimonials';
 import { AIPlayground } from '@/components/landing/AIPlayground';
@@ -49,15 +50,9 @@ export default function LandingPage() {
       {/* ─── NAVIGATION ─── */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/90 border-b border-border/40">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-gov-blue to-ai-purple flex items-center justify-center shrink-0">
-              <Brain className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <span className="font-black text-lg sm:text-xl tracking-tight text-foreground uppercase block leading-none">JANMITRA AI</span>
-              <p className="text-[8px] sm:text-[9px] text-muted-foreground uppercase tracking-widest font-bold mt-1">AI SMART GOVERNANCE</p>
-            </div>
-          </div>
+          <Link href="/" className="inline-flex items-center">
+            <Logo size="md" subtitle="AI SMART GOVERNANCE" />
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
@@ -214,15 +209,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 pb-12">
             {/* Branding Column */}
             <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-xl bg-gov-blue/10 border border-gov-blue/20 flex items-center justify-center text-gov-blue">
-                  <Brain className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="font-extrabold text-lg text-foreground block leading-tight">Janmitra</span>
-                  <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest block">AI GOVERNANCE</span>
-                </div>
-              </div>
+              <Logo size="md" subtitle="AI GOVERNANCE" />
               <p className="text-xs text-muted-foreground leading-relaxed max-w-xs">
                 AI-Powered Smart Governance for faster citizen complaint resolution in Uttar Pradesh.
               </p>

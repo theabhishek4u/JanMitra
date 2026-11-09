@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/lib/AuthContext';
 import { Vote, ArrowLeft, Mail, Lock, User, Phone, MapPin, Globe, AlertCircle, ArrowRight, Check, Sparkles, LayoutDashboard } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { LogoIcon } from '@/components/common/Logo';
 
 const locationData: Record<string, {
   districts: Record<string, {
@@ -230,8 +231,8 @@ function CitizenAuthForm() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(59,130,246,0.15)]">
-              <Vote className="w-8 h-8 text-blue-400" />
+            <div className="mb-6">
+              <LogoIcon sizeClass="w-16 h-16" />
             </div>
             <h1 className="text-4xl xl:text-5xl font-black text-white mb-4 tracking-tight leading-tight">
               Janmitra AI <br />

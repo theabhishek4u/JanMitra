@@ -7,6 +7,7 @@ import {
   Wrench, LayoutDashboard, LogOut, Bell, User, 
   RefreshCw, ClipboardCheck, ArrowLeftRight, ChevronRight, AlertCircle
 } from 'lucide-react';
+import { Logo } from '@/components/common/Logo';
 
 interface DeptSession {
   id: string;
@@ -83,15 +84,10 @@ export default function DepartmentLayout({ children }: { children: React.ReactNo
       {/* Sidebar Navigation */}
       <aside className="w-full md:w-[280px] bg-slate-900/40 backdrop-blur-2xl flex flex-col md:h-screen sticky top-0 z-30 shadow-[4px_0_24px_rgba(0,0,0,0.4)]">
         {/* Title / Logo block */}
-        <div className="px-7 py-6 flex items-center space-x-3 bg-linear-to-b from-slate-900/50 to-transparent">
-          <div className="w-10 h-10 rounded-2xl bg-linear-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-600/30 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-            <Wrench className="w-5 h-5 text-white relative z-10" />
-          </div>
-          <div>
-            <h1 className="text-sm font-black uppercase tracking-widest text-white">Janmitra AI</h1>
-            <span className="text-[9px] font-black text-blue-400 uppercase tracking-widest block mt-0.5">Execution Portal</span>
-          </div>
+        <div className="px-7 py-6 border-b border-slate-800/40">
+          <Link href="/department" className="block">
+            <Logo size="sm" subtitle="Execution Portal" />
+          </Link>
         </div>
 
 

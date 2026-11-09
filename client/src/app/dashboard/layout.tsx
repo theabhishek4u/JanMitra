@@ -15,6 +15,7 @@ import {
   Shield,
   Sparkles
 } from 'lucide-react';
+import { Logo, LogoIcon } from '@/components/common/Logo';
 
 interface AppNotification {
   id: string;
@@ -83,14 +84,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Sidebar - Desktop */}
       <aside className="hidden md:flex flex-col w-64 bg-[#090d1a] border-r border-[#1e293b]/20 p-5 shrink-0 sticky top-0 h-screen overflow-y-auto overflow-x-hidden custom-scrollbar">
         {/* Brand */}
-        <div className="flex items-center space-x-3 mb-8">
-          <div className="w-9 h-9 rounded-xl bg-linear-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-            <HeartHandshake className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <span className="font-extrabold text-md tracking-tight bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-indigo-400">Janmitra AI</span>
-            <p className="text-[8px] text-slate-400 uppercase tracking-wider font-semibold">Citizen Portal</p>
-          </div>
+        <div className="mb-8">
+          <Link href="/dashboard" className="block">
+            <Logo size="md" subtitle="Citizen Portal" />
+          </Link>
         </div>
 
 
@@ -133,10 +130,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <header className="h-16 border-b border-[#1e293b]/45 bg-[#0a0d1e]/80 px-6 flex items-center justify-between sticky top-0 backdrop-blur-xl z-40 shadow-md shadow-black/15">
           {/* Mobile Logo Brand */}
           <div className="flex items-center space-x-2 md:hidden">
-            <div className="w-7 h-7 rounded-lg bg-linear-to-tr from-orange-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              <HeartHandshake className="w-4 h-4 text-white" />
-            </div>
-            <span className="font-extrabold text-sm bg-clip-text text-transparent bg-linear-to-r from-orange-400 to-indigo-400">Janmitra AI</span>
+            <LogoIcon sizeClass="w-8 h-8" />
+            <span className="font-extrabold text-sm tracking-tight text-white">Janmitra <span className="text-cyan-400">AI</span></span>
           </div>
 
           <div className="hidden sm:block" />
