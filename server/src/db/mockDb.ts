@@ -836,12 +836,12 @@ let datasetRecords: DatasetRecord[] = [
 ];
 
 export let mockDepartments: Department[] = [
-  { id: 'pwd', name: 'Public Works Department (PWD)', email: 'pwd@jansunwai.gov.in', password: 'password123', officer: 'Rakesh Kumar (Executive Engineer)', category: 'Road', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() },
-  { id: 'water', name: 'District Water & Sanitation Board', email: 'water@jansunwai.gov.in', password: 'password123', officer: 'Sanjay Mishra (Superintending Engineer)', category: 'Drainage', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() },
-  { id: 'health', name: 'Health Department (CMO Office)', email: 'health@jansunwai.gov.in', password: 'password123', officer: 'Dr. Alok Srivastava (Chief Medical Officer)', category: 'PHC', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() },
-  { id: 'education', name: 'Education Department (BSA Office)', email: 'education@jansunwai.gov.in', password: 'password123', officer: 'Sunita Rawat (Basic Shiksha Adhikari)', category: 'School', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() },
-  { id: 'electricity', name: 'UP Power Corporation Ltd (UPPCL)', email: 'uppcl@jansunwai.gov.in', password: 'password123', officer: 'V. K. Singh (Executive Engineer - Distribution)', category: 'Street Lights', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() },
-  { id: 'municipal', name: 'Lucknow Nagar Nigam', email: 'nagarnigam@jansunwai.gov.in', password: 'password123', officer: 'Indrajeet Singh (Municipal Commissioner)', category: 'Municipal', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() }
+  { id: 'pwd', name: 'Public Works Department (PWD)', email: 'pwd@janmitra.gov.in', password: 'password123', officer: 'Rakesh Kumar (Executive Engineer)', category: 'Road', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() },
+  { id: 'water', name: 'District Water & Sanitation Board', email: 'water@janmitra.gov.in', password: 'password123', officer: 'Sanjay Mishra (Superintending Engineer)', category: 'Drainage', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() },
+  { id: 'health', name: 'Health Department (CMO Office)', email: 'health@janmitra.gov.in', password: 'password123', officer: 'Dr. Alok Srivastava (Chief Medical Officer)', category: 'PHC', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() },
+  { id: 'education', name: 'Education Department (BSA Office)', email: 'education@janmitra.gov.in', password: 'password123', officer: 'Sunita Rawat (Basic Shiksha Adhikari)', category: 'School', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() },
+  { id: 'electricity', name: 'UP Power Corporation Ltd (UPPCL)', email: 'uppcl@janmitra.gov.in', password: 'password123', officer: 'V. K. Singh (Executive Engineer - Distribution)', category: 'Street Lights', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() },
+  { id: 'municipal', name: 'Lucknow Nagar Nigam', email: 'nagarnigam@janmitra.gov.in', password: 'password123', officer: 'Indrajeet Singh (Municipal Commissioner)', category: 'Municipal', status: 'active', verification_status: 'verified', created_at: new Date().toISOString() }
 ];
 
 let auditLogs: AuditLog[] = [

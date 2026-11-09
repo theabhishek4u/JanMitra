@@ -226,7 +226,7 @@ export default function SubmitSuggestion() {
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1&zoom=18&accept-language=en`,
-        { headers: { 'User-Agent': 'JansunwaiAI/1.0' } }
+        { headers: { 'User-Agent': 'JanmitraAI/1.0' } }
       );
       if (!response.ok) throw new Error('Geocoding service unavailable');
       const data = await response.json();
@@ -264,7 +264,7 @@ export default function SubmitSuggestion() {
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&postalcode=${code}&country=India&addressdetails=1&limit=1&accept-language=en`,
-        { headers: { 'User-Agent': 'JansunwaiAI/1.0' } }
+        { headers: { 'User-Agent': 'JanmitraAI/1.0' } }
       );
       if (!response.ok) throw new Error('Geocoding service unavailable');
       const data = await response.json();

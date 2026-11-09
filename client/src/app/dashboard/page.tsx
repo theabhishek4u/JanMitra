@@ -154,7 +154,7 @@ export default function DashboardHome() {
         <div className="space-y-2">
           <h1 className="text-2xl sm:text-3xl font-black text-white">Jai Hind, {user?.full_name}! 🇮🇳</h1>
           <p className="text-sm text-slate-400 max-w-xl leading-relaxed">
-            Welcome to your Jansunwai AI dashboard. Here you can submit complaints, track live works.
+            Welcome to your Janmitra AI dashboard. Here you can submit complaints, track live works.
           </p>
         </div>
         <Link 

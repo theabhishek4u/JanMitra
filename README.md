@@ -1,9 +1,9 @@
 <div align="center">
-  <img src="https://via.placeholder.com/150/4f46e5/ffffff?text=Jansunwai+AI" alt="Jansunwai AI Logo" width="120" />
-  <h1>🇮🇳 Jansunwai AI (जनसुनवाई)</h1>
+  <img src="https://via.placeholder.com/150/4f46e5/ffffff?text=Janmitra+AI" alt="Janmitra AI Logo" width="120" />
+  <h1>🇮🇳 Janmitra AI (जनमित्र)</h1>
   <p><strong>AI-Powered Constituency Decision Intelligence & Execution Platform for Modern India</strong></p>
   
-  <h3>🌐 <a href="https://jansunwai-ai-client.vercel.app/">Live Demo (Frontend)</a> | ⚡ <a href="https://jansunwai-ai-server.vercel.app/">Live API (Backend)</a></h3>
+  <h3>🌐 <a href="https://janmitra-ai-client.vercel.app/">Live Demo (Frontend)</a> | ⚡ <a href="https://janmitra-ai-server.vercel.app/">Live API (Backend)</a></h3>
 
   [![Next.js 15](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
   [![React 19](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
@@ -34,13 +34,13 @@
 
 Traditional public grievance filing is often broken—plagued by duplicate complaints, lack of structural context, and delayed responses. Members of Parliament (MPs) struggle to parse thousands of physical letters and unstructured digital complaints, making data-driven budget allocation almost impossible. 
 
-**Jansunwai AI** is a complete paradigm shift. It transforms static complaint filing into an interactive, **Data-Driven Constituency Decision Intelligence & Execution Platform**. By aggregating citizen suggestions, verifying them via Artificial Intelligence, enabling MPs to simulate budget impact, and seamlessly pushing tasks to local Departments, it bridges the gap between governance and execution.
+**Janmitra AI** is a complete paradigm shift. It transforms static complaint filing into an interactive, **Data-Driven Constituency Decision Intelligence & Execution Platform**. By aggregating citizen suggestions, verifying them via Artificial Intelligence, enabling MPs to simulate budget impact, and seamlessly pushing tasks to local Departments, it bridges the gap between governance and execution.
 
 ---
 
-## 🧠 How AI is Powering Jansunwai
+## 🧠 How AI is Powering Janmitra
 
-Jansunwai AI goes beyond a standard CRUD dashboard by integrating multi-modal AI agents directly into the governance pipeline:
+Janmitra AI goes beyond a standard CRUD dashboard by integrating multi-modal AI agents directly into the governance pipeline:
 
 * 👁️ **Gemini Vision (Real-Time Evidence Analyzer):** When citizens upload photos of a broken road or water leak, the AI instantaneously analyzes the image. It detects the precise infrastructural issue, estimates the severity level, and generates a confidence score to prevent fake or spoofed submissions.
 * 🎙️ **Multilingual Voice-to-Text & Smart Structuring:** Designed for inclusivity, citizens can record complaints in their native language or raw format. The AI transcribes the audio, translates it, and synthesizes it into a formalized, highly professional English proposal ready for parliamentary review.
@@ -181,8 +181,8 @@ Ensure you have **Node.js** (v18+) and **npm** installed.
 
 ### 2. Clone and Install Dependencies
 ```bash
-git clone https://github.com/your-username/jansunwai-ai.git
-cd jansunwai-ai
+git clone https://github.com/your-username/janmitra-ai.git
+cd janmitra-ai
 npm install
 ```
 
@@ -211,23 +211,23 @@ npm run dev
 ## 🌐 Live Demo & Quick-Access Credentials
 
 The platform is fully deployed and accessible live!
-* **Frontend Portal:** [https://jansunwai-ai-client.vercel.app/](https://jansunwai-ai-client.vercel.app/)
-* **Backend API:** [https://jansunwai-ai-server.vercel.app/](https://jansunwai-ai-server.vercel.app/)
+* **Frontend Portal:** [https://janmitra-ai-client.vercel.app/](https://janmitra-ai-client.vercel.app/)
+* **Backend API:** [https://janmitra-ai-server.vercel.app/](https://janmitra-ai-server.vercel.app/)
 
 To experience the platform across all operational levels, you can use the preset login buttons on the `/auth` pages, or use the exact credentials below:
 
 | Portal Role | Login URL | Email | Password |
 | :--- | :--- | :--- | :--- |
 | **Citizen** | `/auth/citizen` | `aarav@mail.com` | `password` |
-| **MP / Official** | `/auth/mp` | `mp@jansunwai.gov.in` | `password` |
-| **Department (PWD)** | `/department/login` | `pwd@jansunwai.gov.in` | `password` |
-| **Super Admin** | `/auth/admin` | `admin@jansunwai.gov.in` | `password` |
+| **MP / Official** | `/auth/mp` | `mp@janmitra.gov.in` | `password` |
+| **Department (PWD)** | `/department/login` | `pwd@janmitra.gov.in` | `password` |
+| **Super Admin** | `/auth/admin` | `admin@janmitra.gov.in` | `password` |
 
 ---
 
 ## 🏆 Real-World Impact
 
-Jansunwai AI doesn't just digitize complaints; it **optimizes the entire lifecycle of governance**. By drastically reducing the noise of duplicate or invalid complaints, structuring raw citizen grief into AI-estimated project proposals, and providing a seamless execution pipeline directly to local departments, it allows our leaders to spend less time reading and more time **building**.
+Janmitra AI doesn't just digitize complaints; it **optimizes the entire lifecycle of governance**. By drastically reducing the noise of duplicate or invalid complaints, structuring raw citizen grief into AI-estimated project proposals, and providing a seamless execution pipeline directly to local departments, it allows our leaders to spend less time reading and more time **building**.
 
 <p align="center">
   <i>Built with ❤️ for a smarter, data-driven India.</i>

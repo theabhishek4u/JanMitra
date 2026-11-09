@@ -234,7 +234,7 @@ function CitizenAuthForm() {
               <Vote className="w-8 h-8 text-blue-400" />
             </div>
             <h1 className="text-4xl xl:text-5xl font-black text-white mb-4 tracking-tight leading-tight">
-              Jansunwai AI <br />
+              Janmitra AI <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-sky-400">
                 Citizen Portal
               </span>
@@ -334,7 +334,7 @@ function CitizenAuthForm() {
                   <button
                     type="button"
                     onClick={() => {
-                      setEmail('citizen@jansunwai.gov.in');
+                      setEmail('citizen@janmitra.gov.in');
                       setPassword('password');
                     }}
                     className="w-full px-3 py-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-400/50 hover:bg-blue-500/20 text-xs font-semibold text-blue-300 transition-all text-center focus:outline-none"

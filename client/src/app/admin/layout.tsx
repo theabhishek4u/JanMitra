@@ -89,7 +89,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Activity className="w-5 h-5 text-white" />
             </div>
             <div>
-              <span className="font-extrabold text-sm tracking-tight bg-clip-text text-transparent bg-linear-to-r from-cyan-400 to-indigo-400">Jansunwai AI</span>
+              <span className="font-extrabold text-sm tracking-tight bg-clip-text text-transparent bg-linear-to-r from-cyan-400 to-indigo-400">Janmitra AI</span>
               <p className="text-[9px] text-cyan-400/80 uppercase tracking-widest font-black">Super Admin</p>
             </div>
           </Link>

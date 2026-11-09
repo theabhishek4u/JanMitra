@@ -16,11 +16,11 @@ export const deleteCookie = (name: string) => {
 };
 
 // Local storage session key for local demo simulation fallback
-const LOCAL_SESSION_KEY = 'jansunwai-demo-session';
+const LOCAL_SESSION_KEY = 'janmitra-demo-session';
 
 const getLocalDemoSession = (): Session | null => {
   if (typeof window === 'undefined') return null;
-  const stored = localStorage.getItem(LOCAL_SESSION_KEY);
+  const stored = localStorage.getItem(LOCAL_SESSION_KEY) || localStorage.getItem('jansunwai-demo-session');
   if (!stored) return null;
   try {
     return JSON.parse(stored) as Session;
@@ -82,7 +82,7 @@ export const authService = {
 
       if (error) {
         // If Supabase fails due to rate limits or unconfirmed emails, and it's a demo account, use local fallback
-        const isDemoAdminMp = email.endsWith('@jansunwai.gov.in') && password === 'password';
+        const isDemoAdminMp = (email.endsWith('@janmitra.gov.in') || email.endsWith('@jansunwai.gov.in')) && password === 'password';
         const isDemoCitizen = email === 'theabhishekyt@gmail.com' && password === '112233';
         
         if (isDemoAdminMp || isDemoCitizen) {
@@ -136,7 +136,7 @@ export const authService = {
         // Auto-register demo credentials if they do not exist
         if (
           (error.message.includes('Invalid login credentials') || error.message.includes('User not found')) &&
-          (email.endsWith('@jansunwai.gov.in') || email === 'theabhishekyt@gmail.com')
+          (email.endsWith('@janmitra.gov.in') || email.endsWith('@jansunwai.gov.in') || email === 'theabhishekyt@gmail.com')
         ) {
           let role: 'citizen' | 'mp' | 'admin' = 'citizen';
           let additionalMeta: Partial<ProfileData> = {

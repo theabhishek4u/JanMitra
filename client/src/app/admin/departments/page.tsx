@@ -452,7 +452,7 @@ export default function AdminDepartmentsPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    placeholder="e.g. pwd@jansunwai.gov.in"
+                    placeholder="e.g. pwd@janmitra.gov.in"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500/40 transition-colors font-mono"
                     required
                   />
@@ -564,7 +564,7 @@ export default function AdminDepartmentsPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    placeholder="e.g. pwd@jansunwai.gov.in"
+                    placeholder="e.g. pwd@janmitra.gov.in"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500/40 transition-colors font-mono"
                     required
                   />

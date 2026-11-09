@@ -88,7 +88,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <HeartHandshake className="w-5 h-5 text-white" />
           </div>
           <div>
-            <span className="font-extrabold text-md tracking-tight bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-indigo-400">Jansunwai AI</span>
+            <span className="font-extrabold text-md tracking-tight bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-indigo-400">Janmitra AI</span>
             <p className="text-[8px] text-slate-400 uppercase tracking-wider font-semibold">Citizen Portal</p>
           </div>
         </div>
@@ -136,7 +136,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="w-7 h-7 rounded-lg bg-linear-to-tr from-orange-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
               <HeartHandshake className="w-4 h-4 text-white" />
             </div>
-            <span className="font-extrabold text-sm bg-clip-text text-transparent bg-linear-to-r from-orange-400 to-indigo-400">Jansunwai AI</span>
+            <span className="font-extrabold text-sm bg-clip-text text-transparent bg-linear-to-r from-orange-400 to-indigo-400">Janmitra AI</span>
           </div>
 
           <div className="hidden sm:block" />

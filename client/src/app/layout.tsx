@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jansunwai AI - AI-Powered Constituency Development Planning Platform",
+  title: "Janmitra AI - AI-Powered Constituency Development Planning Platform",
   description: "Helping MPs make data-driven development decisions through verified citizen requests and intelligent duplicate detection.",
 };
 

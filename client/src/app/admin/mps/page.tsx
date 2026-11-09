@@ -52,7 +52,7 @@ export default function MpManagementPage() {
         // Ensure email handles exist
         const updated = data.map((mp: MpProfile) => ({
           ...mp,
-          email: mp.email || `${mp.full_name.toLowerCase().replace(' ', '.')}@jansunwai.gov.in`,
+          email: mp.email || `${mp.full_name.toLowerCase().replace(' ', '.')}@janmitra.gov.in`,
           isSuspended: mp.isSuspended || false
         }));
         setMps(updated);

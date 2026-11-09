@@ -479,9 +479,9 @@ DECLARE
   v_full_name text;
 BEGIN
   -- Auto-detect role based on email pattern or metadata
-  IF NEW.email = 'admin@jansunwai.gov.in' THEN
+  IF NEW.email = 'admin@janmitra.gov.in' OR NEW.email = 'admin@jansunwai.gov.in' THEN
     v_role := 'admin';
-  ELSIF NEW.email = 'mp@jansunwai.gov.in' THEN
+  ELSIF NEW.email = 'mp@janmitra.gov.in' OR NEW.email = 'mp@jansunwai.gov.in' THEN
     v_role := 'mp';
   ELSE
     v_role := COALESCE(NEW.raw_user_meta_data->>'role', 'citizen');
@@ -596,7 +596,7 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO auth.users (id, email, encrypted_password, email_confirmed_at, role, aud, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, instance_id) VALUES
 (
   'd7b00000-0000-0000-0000-000000000001',
-  'citizen@jansunwai.gov.in',
+  'citizen@janmitra.gov.in',
   crypt('password', gen_salt('bf')),
   now(),
   'authenticated',
@@ -609,7 +609,7 @@ INSERT INTO auth.users (id, email, encrypted_password, email_confirmed_at, role,
 ),
 (
   'd7b00000-0000-0000-0000-000000000002',
-  'mp@jansunwai.gov.in',
+  'mp@janmitra.gov.in',
   crypt('password', gen_salt('bf')),
   now(),
   'authenticated',
@@ -622,7 +622,7 @@ INSERT INTO auth.users (id, email, encrypted_password, email_confirmed_at, role,
 ),
 (
   'd7b00000-0000-0000-0000-000000000003',
-  'admin@jansunwai.gov.in',
+  'admin@janmitra.gov.in',
   crypt('password', gen_salt('bf')),
   now(),
   'authenticated',

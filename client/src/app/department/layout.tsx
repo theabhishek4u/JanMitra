@@ -89,7 +89,7 @@ export default function DepartmentLayout({ children }: { children: React.ReactNo
             <Wrench className="w-5 h-5 text-white relative z-10" />
           </div>
           <div>
-            <h1 className="text-sm font-black uppercase tracking-widest text-white">Jansunwai AI</h1>
+            <h1 className="text-sm font-black uppercase tracking-widest text-white">Janmitra AI</h1>
             <span className="text-[9px] font-black text-blue-400 uppercase tracking-widest block mt-0.5">Execution Portal</span>
           </div>
         </div>

@@ -85,7 +85,7 @@ export default function MpLayout({ children }: { children: React.ReactNode }) {
               <Landmark className="w-5 h-5 text-white" />
             </div>
             <div>
-              <span className="font-extrabold text-sm tracking-tight bg-clip-text text-transparent bg-linear-to-r from-amber-400 to-amber-200">Jansunwai AI</span>
+              <span className="font-extrabold text-sm tracking-tight bg-clip-text text-transparent bg-linear-to-r from-amber-400 to-amber-200">Janmitra AI</span>
               <p className="text-[9px] text-amber-500/60 uppercase tracking-widest font-bold">MP Dashboard</p>
             </div>
           </Link>
