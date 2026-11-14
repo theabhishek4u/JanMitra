@@ -143,6 +143,7 @@ const PINCODE_MAP: Record<string, { state: string; district: string; block: stri
   '226022': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Vikas Nagar', village: 'Vikas Nagar', lat: 26.8950, lng: 80.9650 },
   '226024': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Telibagh', village: 'Telibagh', lat: 26.7850, lng: 80.9350 },
   '226028': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Chinhat', village: 'Chinhat', lat: 26.8800, lng: 81.0400 },
+  '226030': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Sushant Golf City', village: 'The Centrum, Sushant Golf City', lat: 26.7825, lng: 81.0185 },
 
   // Varanasi
   '221001': { state: 'Uttar Pradesh', district: 'Varanasi', block: 'Varanasi City', village: 'Cantonment', lat: 25.3176, lng: 82.9739 },
