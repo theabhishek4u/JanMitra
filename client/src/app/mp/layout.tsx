@@ -172,6 +172,20 @@ export default function MpLayout({ children }: { children: React.ReactNode }) {
               <div className="w-8 h-8 rounded-full bg-linear-to-br from-amber-600 to-amber-800 flex items-center justify-center text-white text-xs font-bold">
                 {user.full_name?.charAt(0) || 'M'}
               </div>
+
+              {/* Quick Sign Out Button */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  logout();
+                }}
+                title="Sign Out from MP Portal"
+                className="px-3 py-1.5 rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-all flex items-center gap-1.5 text-xs font-bold cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5 text-rose-400" />
+                <span className="hidden sm:inline">Sign Out</span>
+              </button>
             </div>
           </div>
         </header>

@@ -174,6 +174,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <div className="w-8 h-8 rounded-full bg-linear-to-br from-cyan-600 to-indigo-700 flex items-center justify-center text-white text-xs font-bold">
                 SA
               </div>
+
+              {/* Quick Admin Log Out Button */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  logout();
+                }}
+                title="Log Out from Admin Portal"
+                className="px-3 py-1.5 rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-all flex items-center gap-1.5 text-xs font-bold cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5 text-rose-400" />
+                <span className="hidden sm:inline">Log Out</span>
+              </button>
             </div>
           </div>
         </header>

@@ -113,12 +113,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
 
         {/* Footer actions */}
-        <div className="pt-6 border-t border-[#1e293b]/20">
+        <div className="pt-6 border-t border-[#1e293b]/20 relative z-50">
           <button
-            onClick={logout}
-            className="w-full flex items-center space-x-3.5 px-4 py-3 text-sm font-semibold text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all"
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              logout();
+            }}
+            className="w-full flex items-center space-x-3.5 px-4 py-3 text-sm font-bold text-rose-400 hover:text-white hover:bg-rose-500/20 rounded-xl transition-all cursor-pointer shadow-sm shadow-rose-950/20 border border-rose-500/10 hover:border-rose-500/30"
           >
-            <LogOut className="w-5 h-5" />
+            <LogOut className="w-5 h-5 text-rose-500 shrink-0" />
             <span>Sign Out</span>
           </button>
         </div>
@@ -229,6 +233,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 </div>
               </Link>
             )}
+
+            {/* Quick Top Navbar Sign Out */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                logout();
+              }}
+              title="Sign Out from Account"
+              className="px-3 py-1.5 rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300 transition-all flex items-center gap-1.5 text-xs font-bold cursor-pointer"
+            >
+              <LogOut className="w-3.5 h-3.5 text-rose-400" />
+              <span className="hidden sm:inline">Sign Out</span>
+            </button>
           </div>
         </header>
 

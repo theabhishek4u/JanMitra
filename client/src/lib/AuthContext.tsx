@@ -99,12 +99,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       await authService.signOut();
       setUser(null);
-      window.location.href = '/';
     } catch (err) {
       console.error('Logout failed:', err);
-      window.location.href = '/';
     } finally {
       setLoading(false);
+      window.location.href = '/';
     }
   };
 

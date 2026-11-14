@@ -13,8 +13,11 @@ export const setCookie = (name: string, value: string, days = 7) => {
 
 export const deleteCookie = (name: string) => {
   if (typeof document === 'undefined') return;
-  const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
-  document.cookie = `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT; SameSite=Lax${isHttps ? '; Secure' : ''}`;
+  // Overwrite cookie with expired date across multiple parameter variations to guarantee clearance
+  document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0`;
+  document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
+  document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax; Secure`;
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0`;
 };
 
 // Local storage session key for local demo simulation fallback
@@ -37,6 +40,7 @@ const setLocalDemoSession = (session: Session | null) => {
     localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify(session));
   } else {
     localStorage.removeItem(LOCAL_SESSION_KEY);
+    localStorage.removeItem('janmitra-demo-session');
   }
 };
 
@@ -262,16 +266,47 @@ export const authService = {
   },
 
   signOut: async () => {
-    try {
-      await supabase.auth.signOut();
-    } catch {
-      // ignore network errors on signout
-    }
-    
-    setLocalDemoSession(null);
+    // 1. Immediately and synchronously clear all auth cookies
     deleteCookie('sb-access-token');
     deleteCookie('user-role');
-    authListeners.forEach(listener => listener('SIGNED_OUT', null));
+    deleteCookie('supabase-auth-token');
+
+    // 2. Immediately clear all local session storage keys
+    setLocalDemoSession(null);
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.removeItem('jansunwai-demo-session');
+        localStorage.removeItem('janmitra-demo-session');
+        localStorage.removeItem('dept-session');
+        // Purge any cached Supabase auth tokens stored in localStorage
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && (key.startsWith('sb-') || key.includes('auth-token') || key.includes('session'))) {
+            keysToRemove.push(key);
+          }
+        }
+        keysToRemove.forEach(k => localStorage.removeItem(k));
+      } catch {
+        // ignore
+      }
+    }
+
+    // 3. Immediately notify auth listeners
+    authListeners.forEach(listener => {
+      try {
+        listener('SIGNED_OUT', null);
+      } catch {
+        // ignore
+      }
+    });
+
+    // 4. Fire remote Supabase signOut in background (do NOT await or block on it)
+    try {
+      supabase.auth.signOut({ scope: 'local' }).catch(() => {});
+    } catch {
+      // ignore
+    }
   },
 
   resetPasswordForEmail: async (email: string) => {
