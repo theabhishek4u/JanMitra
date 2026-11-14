@@ -30,9 +30,9 @@ export function DemoTour() {
 
   // Auto-set steps based on pathname
   useEffect(() => {
-    if (pathname.includes("/citizen")) {
+    if (pathname.includes("/dashboard") || pathname.includes("/citizen")) {
       setCurrentStep(1);
-    } else if (pathname.includes("/officer")) {
+    } else if (pathname.includes("/department") || pathname.includes("/officer")) {
       setCurrentStep(2);
     } else if (pathname.includes("/admin")) {
       setCurrentStep(3);
@@ -55,7 +55,7 @@ export function DemoTour() {
 
   const nextStep = () => {
     if (currentStep === 1) {
-      router.push("/officer?demo=true");
+      router.push("/department?demo=true");
     } else if (currentStep === 2) {
       router.push("/admin?demo=true");
     } else if (currentStep === 3) {
@@ -73,12 +73,12 @@ export function DemoTour() {
           advisorName: "Mitra AI — Citizen Guide",
           instruction: autofilled 
             ? "Fabulous! The visual hazard scanning laser is analyzing the stalled school construction site. Review the classified tags, then scroll down to press the 'Submit & Analyze with AI' button!"
-            : "Welcome, Judge! Let's simulate a live citizen complaint. Click the button below to auto-fill a real school infrastructure complaint in Gomti Nagar, Lucknow.",
+            : "Welcome! Let's simulate a live citizen complaint. Click the button below to auto-fill a real school infrastructure complaint in Gomti Nagar, Lucknow.",
           actionText: autofilled ? "Waiting for submission..." : "Auto-Fill Demo Data",
           action: triggerAutofill,
           disabled: autofilled,
-          nextPath: "/officer?demo=true",
-          nextText: "Go to Officer Console",
+          nextPath: "/department?demo=true",
+          nextText: "Go to Department Console",
         };
       case 2:
         return {
@@ -114,9 +114,9 @@ export function DemoTour() {
           advisorName: "Mitra AI — Master Guide",
           instruction: "Let's explore Jansunwai AI's end-to-end autonomous flow. Click below to enter the Citizen Portal and file an AI-classified complaint.",
           actionText: "Start Citizen Demo",
-          action: () => router.push("/citizen?demo=true"),
+          action: () => router.push("/dashboard?demo=true"),
           disabled: false,
-          nextPath: "/citizen?demo=true",
+          nextPath: "/dashboard?demo=true",
           nextText: "Go to Citizen Page",
         };
     }

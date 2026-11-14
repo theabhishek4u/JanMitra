@@ -28,6 +28,22 @@ function AdminAuthForm() {
     }
   }, [user, router]);
 
+  const handleQuickDemo = async (demoEmail: string, demoPass: string) => {
+    setEmail(demoEmail);
+    setPassword(demoPass);
+    setError('');
+    setLoading(true);
+    try {
+      await login(demoEmail, demoPass);
+      router.push('/admin');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Login failed.';
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -45,8 +61,9 @@ function AdminAuthForm() {
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Login failed. Please check credentials or role.';
       setError(msg);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -145,17 +162,21 @@ function AdminAuthForm() {
               </div>
             )}
 
-            <div className="mb-6 p-4 rounded-2xl bg-cyan-950/20 border border-cyan-900/30">
-              <p className="text-[10px] text-cyan-500 uppercase font-black text-center tracking-widest mb-2">Quick Access</p>
+            <div className="mb-6 p-4 rounded-2xl bg-cyan-950/30 border border-cyan-900/40">
+              <div className="flex items-center justify-between mb-2.5">
+                <p className="text-[10px] text-cyan-400 uppercase font-black tracking-widest flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+                  1-Click Instant Admin Demo
+                </p>
+                <span className="text-[9px] text-slate-500 font-bold uppercase">Super User</span>
+              </div>
               <button
                 type="button"
-                onClick={() => {
-                  setEmail('admin@jansunwai.gov.in');
-                  setPassword('password');
-                }}
-                className="w-full px-3 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 hover:border-cyan-400/50 text-xs font-semibold text-cyan-300 transition-all text-center focus:outline-none"
+                disabled={loading}
+                onClick={() => handleQuickDemo('admin@jansunwai.gov.in', 'password')}
+                className="w-full px-4 py-3 rounded-xl bg-linear-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 border border-cyan-400/30 text-xs font-bold text-white transition-all text-center focus:outline-none flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-cyan-600/25 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
               >
-                Load Demo Credentials
+                <span>⚡ Enter as Super Administrator</span>
               </button>
             </div>
 

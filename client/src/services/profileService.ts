@@ -30,6 +30,47 @@ export const profileService = {
     if (role === 'mp') tableName = 'mp_profiles';
     if (role === 'admin') tableName = 'admin_profiles';
 
+    const getFallbackProfile = (): ProfileData => {
+      if (role === 'mp') {
+        return {
+          id: userId,
+          full_name: 'Dr. Vikram Singh',
+          email: 'mp@jansunwai.gov.in',
+          role: 'mp',
+          state: 'Uttar Pradesh',
+          district: 'Lucknow',
+          parliamentary_constituency: 'Lucknow',
+          assembly_constituency: 'Lucknow Central',
+          avatar_url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150'
+        };
+      }
+      if (role === 'admin') {
+        return {
+          id: userId,
+          full_name: 'Super Administrator',
+          email: 'admin@jansunwai.gov.in',
+          role: 'admin',
+          avatar_url: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=150'
+        };
+      }
+      return {
+        id: userId,
+        full_name: 'Aarav Sharma',
+        email: 'citizen@jansunwai.gov.in',
+        phone: '+91 98765 43210',
+        role: 'citizen',
+        state: 'Uttar Pradesh',
+        district: 'Varanasi',
+        parliamentary_constituency: 'Varanasi',
+        assembly_constituency: 'Varanasi Cantt',
+        village_ward: 'Sigra Ward',
+        pincode: '221002',
+        contribution_score: 85,
+        verification_status: 'verified',
+        avatar_url: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150'
+      };
+    };
+
     try {
       const { data, error } = await supabase
         .from(tableName)
@@ -37,22 +78,14 @@ export const profileService = {
         .eq('id', userId)
         .single();
 
-      if (error) {
-        return {
-          id: userId,
-          full_name: 'New User',
-          role
-        };
+      if (error || !data) {
+        return getFallbackProfile();
       }
       
       return { ...data, role };
     } catch (err) {
-      console.warn('Network error in getProfile, using fallback data:', err);
-      return {
-        id: userId,
-        full_name: 'Demo User',
-        role
-      };
+      console.warn('Network error in getProfile, using demo profile fallback:', err);
+      return getFallbackProfile();
     }
   },
 

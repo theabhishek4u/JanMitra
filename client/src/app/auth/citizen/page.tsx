@@ -128,6 +128,22 @@ function CitizenAuthForm() {
     return true;
   };
 
+  const handleQuickDemo = async (demoEmail: string, demoPass: string) => {
+    setEmail(demoEmail);
+    setPassword(demoPass);
+    setError('');
+    setLoading(true);
+    try {
+      await login(demoEmail, demoPass);
+      router.push('/dashboard');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Login failed. Please check credentials.';
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -147,6 +163,8 @@ function CitizenAuthForm() {
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Login failed. Please check credentials.';
         setError(msg);
+      } finally {
+        setLoading(false);
       }
     } else {
       if (registerStep === 1) {
@@ -329,18 +347,30 @@ function CitizenAuthForm() {
             </AnimatePresence>
 
             {isLogin && (
-              <div className="mb-6 p-3.5 rounded-2xl bg-blue-950/20 border border-blue-900/30 space-y-2">
-                <p className="text-[10px] text-blue-400 uppercase font-black text-center tracking-widest">Demo Quick Access</p>
-                <div className="flex justify-center">
+              <div className="mb-6 p-4 rounded-2xl bg-blue-950/30 border border-blue-900/40 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] text-blue-400 uppercase font-black tracking-widest flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                    1-Click Instant Demo Login
+                  </p>
+                  <span className="text-[9px] text-slate-500 font-bold uppercase">No password needed</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <button
                     type="button"
-                    onClick={() => {
-                      setEmail('citizen@jansunwai.gov.in');
-                      setPassword('password');
-                    }}
-                    className="w-full px-3 py-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:border-blue-400/50 hover:bg-blue-500/20 text-xs font-semibold text-blue-300 transition-all text-center focus:outline-none"
+                    disabled={loading}
+                    onClick={() => handleQuickDemo('citizen@jansunwai.gov.in', 'password')}
+                    className="w-full px-3 py-2.5 rounded-xl bg-blue-500/15 border border-blue-500/30 hover:border-blue-400 hover:bg-blue-500/25 text-xs font-bold text-white transition-all text-center focus:outline-none flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-blue-500/10 disabled:opacity-50"
                   >
-                    Citizen Demo: Aarav Sharma
+                    <span>⚡ Aarav Sharma</span>
+                  </button>
+                  <button
+                    type="button"
+                    disabled={loading}
+                    onClick={() => handleQuickDemo('theabhishekyt@gmail.com', '112233')}
+                    className="w-full px-3 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700/60 hover:border-blue-400/50 hover:bg-slate-800 text-xs font-bold text-slate-300 hover:text-white transition-all text-center focus:outline-none flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  >
+                    <span>⚡ Abhishek</span>
                   </button>
                 </div>
               </div>

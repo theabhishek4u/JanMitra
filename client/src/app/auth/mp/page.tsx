@@ -28,6 +28,22 @@ function MPAuthForm() {
     }
   }, [user, router]);
 
+  const handleQuickDemo = async (demoEmail: string, demoPass: string) => {
+    setEmail(demoEmail);
+    setPassword(demoPass);
+    setError('');
+    setLoading(true);
+    try {
+      await login(demoEmail, demoPass);
+      router.push('/mp');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Login failed.';
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -45,8 +61,9 @@ function MPAuthForm() {
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Login failed. Please check credentials or role.';
       setError(msg);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -145,17 +162,21 @@ function MPAuthForm() {
               </div>
             )}
 
-            <div className="mb-6 p-4 rounded-2xl bg-indigo-950/20 border border-indigo-900/30">
-              <p className="text-[10px] text-indigo-400 uppercase font-black text-center tracking-widest mb-2">MP Quick Access</p>
+            <div className="mb-6 p-4 rounded-2xl bg-indigo-950/30 border border-indigo-900/40">
+              <div className="flex items-center justify-between mb-2.5">
+                <p className="text-[10px] text-indigo-400 uppercase font-black tracking-widest flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
+                  1-Click Instant MP Demo
+                </p>
+                <span className="text-[9px] text-slate-500 font-bold uppercase">Constituency Head</span>
+              </div>
               <button
                 type="button"
-                onClick={() => {
-                  setEmail('mp@jansunwai.gov.in');
-                  setPassword('password');
-                }}
-                className="w-full px-3 py-2.5 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 hover:border-indigo-400/50 text-xs font-semibold text-indigo-300 transition-all text-center focus:outline-none"
+                disabled={loading}
+                onClick={() => handleQuickDemo('mp@jansunwai.gov.in', 'password')}
+                className="w-full px-4 py-3 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 border border-indigo-400/30 text-xs font-bold text-white transition-all text-center focus:outline-none flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-indigo-600/25 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
               >
-                MP Demo: Dr. Vikram Singh
+                <span>⚡ Enter as Dr. Vikram Singh (MP Lucknow)</span>
               </button>
             </div>
 

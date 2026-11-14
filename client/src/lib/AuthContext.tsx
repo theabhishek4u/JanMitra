@@ -67,9 +67,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setLoading(true);
     try {
       await authService.signIn(email, password);
+      const session = await authService.getSession();
+      if (session) {
+        const role = (session.user.user_metadata?.role as ProfileData['role']) || 'citizen';
+        await loadProfile(session.user.id, role);
+      }
     } catch (err) {
       setLoading(false);
       throw err;
+    } finally {
+      setLoading(false);
     }
   };
 

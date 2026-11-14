@@ -39,43 +39,61 @@ export default function DepartmentLoginPage() {
       .catch(err => console.log('Using static default departments fallback:', err));
   }, []);
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLoginSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setLoading(true);
     setError('');
 
-    let matchedDept = departments.find(d => d.email.toLowerCase() === email.toLowerCase());
-    if (selectedDeptId) {
-      matchedDept = departments.find(d => d.id === selectedDeptId);
+    let matchedDept = selectedDeptId ? departments.find(d => d.id === selectedDeptId) : null;
+    if (!matchedDept) {
+      matchedDept = departments.find(d => d.email.toLowerCase() === email.toLowerCase());
+    }
+    if (!matchedDept && departments.length > 0) {
+      matchedDept = departments[0];
     }
 
     if (matchedDept) {
+      localStorage.setItem('dept-session', JSON.stringify({
+        id: matchedDept.id,
+        name: matchedDept.name,
+        email: matchedDept.email,
+        officer: matchedDept.officer,
+        category: matchedDept.category,
+        role: 'department_officer'
+      }));
       setTimeout(() => {
-        localStorage.setItem('dept-session', JSON.stringify({
-          id: matchedDept!.id,
-          name: matchedDept!.name,
-          email: matchedDept!.email,
-          officer: matchedDept!.officer,
-          category: matchedDept!.category,
-          role: 'department_officer'
-        }));
         setLoading(false);
         router.push('/department');
-      }, 1000);
+      }, 300);
     } else {
       setTimeout(() => {
         setLoading(false);
         setError('Invalid credentials. Use Quick Demo Access for instant access.');
-      }, 800);
+      }, 300);
     }
   };
 
-  const selectQuickDept = (id: string) => {
+  const selectQuickDept = (id: string, autoLogin = false) => {
     setSelectedDeptId(id);
     const dept = departments.find(d => d.id === id);
     if (dept) {
       setEmail(dept.email);
-      setPassword('password123');
+      setPassword('password');
+      if (autoLogin) {
+        localStorage.setItem('dept-session', JSON.stringify({
+          id: dept.id,
+          name: dept.name,
+          email: dept.email,
+          officer: dept.officer,
+          category: dept.category,
+          role: 'department_officer'
+        }));
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+          router.push('/department');
+        }, 300);
+      }
     }
   };
 
@@ -177,21 +195,47 @@ export default function DepartmentLoginPage() {
 
             <form onSubmit={handleLoginSubmit} className="space-y-4">
               {/* Quick Demo Selector */}
-              <div>
-                <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
-                  <span>Quick Demo Access</span>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <Building2 className="w-3.5 h-3.5 text-amber-400" />
+                    1-Click Instant Department Demo
+                  </span>
                   <span className="text-amber-400 text-[9px] font-black uppercase bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded">Fast Track</span>
-                </label>
-                <select
-                  value={selectedDeptId}
-                  onChange={e => selectQuickDept(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl bg-slate-950/50 border border-slate-700/50 text-sm text-slate-200 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
-                >
-                  <option value="">Select Government Department...</option>
-                  {departments.map(d => (
-                    <option key={d.id} value={d.id}>{d.name}</option>
-                  ))}
-                </select>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    disabled={loading}
+                    onClick={() => selectQuickDept('pwd', true)}
+                    className="p-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 hover:border-amber-400 hover:bg-amber-500/25 text-left text-xs text-white font-bold transition-all cursor-pointer shadow-md shadow-amber-500/10 disabled:opacity-50"
+                  >
+                    <span className="block text-amber-300 text-[10px]">🛣️ PWD Roads</span>
+                    <span className="truncate block">Rakesh Kumar</span>
+                  </button>
+                  <button
+                    type="button"
+                    disabled={loading}
+                    onClick={() => selectQuickDept('water', true)}
+                    className="p-2.5 rounded-xl bg-slate-900 border border-slate-700/60 hover:border-amber-400/50 hover:bg-slate-800 text-left text-xs text-slate-200 hover:text-white font-bold transition-all cursor-pointer disabled:opacity-50"
+                  >
+                    <span className="block text-cyan-400 text-[10px]">💧 Jal Nigam</span>
+                    <span className="truncate block">Sanjay Mishra</span>
+                  </button>
+                </div>
+
+                <div className="pt-1">
+                  <select
+                    value={selectedDeptId}
+                    onChange={e => selectQuickDept(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/50 border border-slate-700/50 text-xs text-slate-300 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors cursor-pointer"
+                  >
+                    <option value="">Or select from 6 other departments...</option>
+                    {departments.map(d => (
+                      <option key={d.id} value={d.id}>{d.name} ({d.officer})</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div className="relative flex py-2 items-center">
