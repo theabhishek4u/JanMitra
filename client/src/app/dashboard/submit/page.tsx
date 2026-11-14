@@ -839,22 +839,27 @@ export default function SubmitSuggestion() {
             </h1>
             <p className="text-xs text-slate-400">Voice-to-text, GIS location verification, and instant AI priority scoring for direct MP intervention.</p>
           </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Voice Language:</span>
-            {['English', 'Hindi', 'Bengali', 'Marathi'].map((lang) => (
-              <button
-                key={lang}
-                type="button"
-                onClick={() => setLanguage(lang)}
-                className={`text-[11px] font-bold px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
-                  language === lang
-                    ? 'bg-indigo-600 text-white border-indigo-500 shadow-sm shadow-indigo-500/25'
-                    : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700'
-                }`}
-              >
-                {lang === 'Hindi' ? 'हिंदी' : lang === 'Bengali' ? 'বাংলা' : lang === 'Marathi' ? 'मराठी' : lang}
-              </button>
-            ))}
+          <div className="flex items-center gap-2 bg-slate-950/80 border border-slate-800/80 p-1.5 rounded-2xl shadow-inner backdrop-blur-md">
+            <span className="flex items-center gap-1.5 text-[10px] text-slate-400 font-bold uppercase tracking-wider pl-2 pr-1">
+              <Mic className="w-3.5 h-3.5 text-indigo-400" />
+              Voice:
+            </span>
+            <div className="flex items-center gap-1">
+              {['English', 'Hindi', 'Bengali', 'Marathi'].map((lang) => (
+                <button
+                  key={lang}
+                  type="button"
+                  onClick={() => setLanguage(lang)}
+                  className={`text-[11px] font-bold px-3 py-1.5 rounded-xl border transition-all cursor-pointer ${
+                    language === lang
+                      ? 'bg-indigo-600 text-white border-indigo-400 shadow-md shadow-indigo-600/30'
+                      : 'bg-transparent text-slate-400 border-transparent hover:text-white hover:bg-slate-900/60'
+                  }`}
+                >
+                  {lang === 'Hindi' ? 'हिंदी' : lang === 'Bengali' ? 'বাংলা' : lang === 'Marathi' ? 'मराठी' : lang}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -950,48 +955,60 @@ export default function SubmitSuggestion() {
                 </div>
               </div>
 
-              {/* Category selector: Visual Chips + Dropdown */}
-              <div className="space-y-2.5">
-                <label className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-                  <Layers className="w-3.5 h-3.5 text-indigo-400" />
-                  Development Category
-                </label>
-
-                {/* Popular Category Chips */}
-                <div className="flex flex-wrap gap-2 pt-1 pb-1">
-                  {POPULAR_CATEGORIES.map((cat) => (
-                    <button
-                      key={cat.name}
-                      type="button"
-                      onClick={() => setCategory(cat.name)}
-                      className={`px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border transition-all cursor-pointer ${
-                        category === cat.name
-                          ? 'bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-600/30'
-                          : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
-                      }`}
-                    >
-                      <span>{cat.icon}</span>
-                      <span>{cat.label}</span>
-                    </button>
-                  ))}
+              {/* Development Category Picker: Clean Visual Cards + Other selector */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+                    <Layers className="w-3.5 h-3.5 text-indigo-400" />
+                    Development Category
+                  </label>
+                  <span className="text-[11px] font-semibold text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded-full">
+                    {category}
+                  </span>
                 </div>
 
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-indigo-400 transition-colors">
-                    <Layers className="w-4 h-4" />
+                {/* Popular Category Interactive Cards */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+                  {POPULAR_CATEGORIES.map((cat) => {
+                    const isSelected = category === cat.name;
+                    return (
+                      <button
+                        key={cat.name}
+                        type="button"
+                        onClick={() => setCategory(cat.name)}
+                        className={`p-3 rounded-2xl flex flex-col items-center justify-center text-center gap-1.5 border transition-all duration-200 cursor-pointer ${
+                          isSelected
+                            ? 'bg-linear-to-b from-indigo-600 to-indigo-700 text-white border-indigo-400 shadow-lg shadow-indigo-600/30 scale-[1.02] ring-1 ring-indigo-400/50'
+                            : 'bg-slate-950/60 text-slate-400 border-slate-800/80 hover:border-slate-700 hover:text-slate-200 hover:bg-slate-900/50'
+                        }`}
+                      >
+                        <span className="text-xl">{cat.icon}</span>
+                        <span className="text-[11px] font-bold leading-tight">{cat.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Clean inline dropdown for additional 15+ categories */}
+                <div className="flex items-center gap-2 pt-0.5">
+                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider shrink-0">More Categories:</span>
+                  <div className="relative flex-1">
+                    <select
+                      value={POPULAR_CATEGORIES.some(c => c.name === category) ? '' : category}
+                      onChange={(e) => {
+                        if (e.target.value) setCategory(e.target.value);
+                      }}
+                      className="w-full bg-slate-950/60 border border-slate-800/80 rounded-xl py-2 pl-3 pr-8 text-xs text-slate-300 focus:outline-none focus:border-indigo-500/60 focus:ring-1 focus:ring-indigo-500/20 transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="" disabled>Browse 15+ additional sectors (Environment, Women Safety, etc.)...</option>
+                      {CATEGORIES.filter(c => !POPULAR_CATEGORIES.some(pc => pc.name === c)).map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-3.5 h-3.5 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
-                  <select
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="w-full bg-slate-950/70 border border-slate-800/80 rounded-2xl py-3.5 pl-11 pr-10 text-sm text-slate-100 focus:outline-none focus:border-indigo-500/60 focus:ring-2 focus:ring-indigo-500/10 transition-all duration-300 appearance-none cursor-pointer"
-                  >
-                    {CATEGORIES.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                 </div>
               </div>
 
@@ -1085,27 +1102,49 @@ export default function SubmitSuggestion() {
                 </div>
               </div>
 
-              {/* Urgency */}
-              <div className="space-y-2.5">
-                <label className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-                  <Zap className="w-3.5 h-3.5 text-amber-400" />
-                  Urgency Level
-                </label>
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-amber-400 transition-colors">
-                    <AlertTriangle className="w-4 h-4" />
-                  </div>
-                  <select
-                    value={urgency}
-                    onChange={(e) => setUrgency(e.target.value)}
-                    className="w-full bg-slate-950/70 border border-slate-800/80 rounded-2xl py-4 pl-11 pr-10 text-sm text-slate-100 focus:outline-none focus:border-indigo-500/60 focus:ring-2 focus:ring-indigo-500/10 transition-all duration-300 appearance-none cursor-pointer"
-                  >
-                    <option value="low">🟢 Low — Routine Planning</option>
-                    <option value="medium">🟡 Medium — Important Improvement</option>
-                    <option value="high">🟠 High — High Priority</option>
-                    <option value="critical">🔴 Critical — Urgent Public Hazard</option>
-                  </select>
-                  <ChevronDown className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+              {/* Urgency Selector: 4-Segment Visual Priority Cards */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+                    <Zap className="w-3.5 h-3.5 text-amber-400" />
+                    Urgency Level
+                  </label>
+                  <span className="text-[10px] text-slate-500 font-medium">Select based on public hazard & necessity</span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  {[
+                    { id: 'low', label: 'Routine', badge: '🟢 Low', desc: 'Planned improvement' },
+                    { id: 'medium', label: 'Important', badge: '🟡 Medium', desc: 'Active community need' },
+                    { id: 'high', label: 'High Priority', badge: '🟠 High', desc: 'Immediate MP action' },
+                    { id: 'critical', label: 'Hazard', badge: '🔴 Critical', desc: 'Severe safety emergency' },
+                  ].map((u) => {
+                    const isSelected = urgency === u.id;
+                    return (
+                      <button
+                        key={u.id}
+                        type="button"
+                        onClick={() => setUrgency(u.id)}
+                        className={`p-3 rounded-2xl border text-left transition-all duration-200 cursor-pointer ${
+                          isSelected
+                            ? u.id === 'critical'
+                              ? 'bg-rose-950/50 border-rose-500 text-white shadow-lg shadow-rose-500/20 ring-1 ring-rose-500'
+                              : u.id === 'high'
+                              ? 'bg-amber-950/50 border-amber-500 text-white shadow-lg shadow-amber-500/20 ring-1 ring-amber-500'
+                              : u.id === 'medium'
+                              ? 'bg-yellow-950/40 border-yellow-500/80 text-white shadow-lg shadow-yellow-500/15 ring-1 ring-yellow-500/60'
+                              : 'bg-emerald-950/40 border-emerald-500/80 text-white shadow-lg shadow-emerald-500/15 ring-1 ring-emerald-500/60'
+                            : 'bg-slate-950/60 border-slate-800/80 text-slate-400 hover:border-slate-700 hover:text-slate-200 hover:bg-slate-900/40'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-xs font-bold">{u.badge}</span>
+                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />}
+                        </div>
+                        <p className="text-[10px] font-medium text-slate-400">{u.desc}</p>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -1216,33 +1255,39 @@ export default function SubmitSuggestion() {
                   </div>
                 ) : (
                   <>
-                    <div 
+                    <label 
                       onDragOver={handleDragOver}
                       onDragLeave={handleDragLeave}
                       onDrop={handleDrop}
-                      className={`rounded-2xl border-2 border-dashed p-5 transition-all duration-300 ${
+                      className={`flex flex-col items-center justify-center py-9 px-6 rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer group ${
                         isDragging 
-                          ? 'border-indigo-500 bg-indigo-500/8 scale-[1.01]' 
-                          : 'border-slate-800/60 bg-slate-950/40 hover:border-slate-700/80'
+                          ? 'border-indigo-500 bg-indigo-500/10 scale-[1.01] shadow-xl shadow-indigo-500/10' 
+                          : 'border-slate-800 bg-slate-950/50 hover:border-indigo-500/50 hover:bg-indigo-950/10'
                       }`}
                     >
-                      <p className="text-[11px] text-slate-500 font-medium text-center mb-4">Drag & drop files or select a category below</p>
-                      
-                      <label className="flex flex-col items-center justify-center py-8 bg-indigo-500/5 border border-indigo-500/20 hover:border-indigo-500/40 rounded-xl cursor-pointer transition-all group hover:bg-indigo-500/10 active:scale-[0.98]">
-                        <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-3 group-hover:scale-110 transition-transform shadow-inner">
-                          <Paperclip className="w-6 h-6" />
-                        </div>
-                        <span className="text-sm font-bold text-indigo-300 mb-1">Click to Upload Files</span>
-                        <span className="text-[10px] text-slate-500">Supports Images, Videos, Audio, and PDFs</span>
-                        <input 
-                          type="file" 
-                          accept="image/*,video/*,audio/*,.pdf,.doc,.docx" 
-                          multiple 
-                          className="hidden" 
-                          onChange={handleFileChange} 
-                        />
-                      </label>
-                    </div>
+                      <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-3.5 group-hover:scale-110 group-hover:bg-indigo-500/20 transition-all shadow-inner">
+                        <Paperclip className="w-6 h-6" />
+                      </div>
+                      <span className="text-sm font-bold text-white group-hover:text-indigo-300 transition-colors mb-1">
+                        Upload Photos, Videos or Documents
+                      </span>
+                      <p className="text-[11px] text-slate-400 text-center max-w-sm mb-3">
+                        Drag and drop files here, or <span className="text-indigo-400 font-bold underline">browse</span> from your phone/device.
+                      </p>
+                      <div className="flex items-center gap-2 flex-wrap justify-center">
+                        <span className="text-[9px] font-bold uppercase text-slate-400 bg-slate-900 border border-slate-800 px-2.5 py-0.5 rounded-full">JPG / PNG</span>
+                        <span className="text-[9px] font-bold uppercase text-slate-400 bg-slate-900 border border-slate-800 px-2.5 py-0.5 rounded-full">MP4 Video</span>
+                        <span className="text-[9px] font-bold uppercase text-slate-400 bg-slate-900 border border-slate-800 px-2.5 py-0.5 rounded-full">Audio Voice</span>
+                        <span className="text-[9px] font-bold uppercase text-slate-400 bg-slate-900 border border-slate-800 px-2.5 py-0.5 rounded-full">PDF Document</span>
+                      </div>
+                      <input 
+                        type="file" 
+                        accept="image/*,video/*,audio/*,.pdf,.doc,.docx" 
+                        multiple 
+                        className="hidden" 
+                        onChange={handleFileChange} 
+                      />
+                    </label>
                     
                     {/* Default Prompt block when empty */}
                     <div className="mt-3 p-3.5 rounded-xl border border-indigo-500/20 bg-slate-900/40 relative overflow-hidden">
@@ -1496,32 +1541,59 @@ export default function SubmitSuggestion() {
               </div>
             </div>
 
-            <div className="space-y-5">
-              <div className="space-y-2.5">
-                {Object.entries(completeness).map(([key, isComplete]) => 
-                  isComplete ? (
-                    <div key={key} className="flex items-center gap-2.5 text-sm font-medium text-emerald-400 bg-emerald-500/5 px-3 py-1.5 rounded-lg border border-emerald-500/10 transition-all duration-500">
-                      <CheckCircle className="w-4 h-4" />
-                      {key}
+            <div className="space-y-4">
+              {/* Completed items */}
+              <div className="space-y-2">
+                {Object.entries(completeness).map(([key, isComplete]) => {
+                  if (!isComplete) return null;
+                  const labelMap: Record<string, string> = {
+                    Title: 'Clear Title Added',
+                    Description: 'Comprehensive Details',
+                    Location: 'GIS Location Verified',
+                    Image: 'Evidence Media Attached'
+                  };
+                  return (
+                    <div key={key} className="flex items-center justify-between text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-3 py-2 rounded-xl border border-emerald-500/20 transition-all duration-300">
+                      <span className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>{labelMap[key] || key}</span>
+                      </span>
+                      <span className="text-[10px] uppercase font-bold text-emerald-500">Verified</span>
                     </div>
-                  ) : null
-                )}
+                  );
+                })}
               </div>
               
+              {/* Missing items */}
               {Object.values(completeness).includes(false) && (
                 <>
-                  <div className="h-px w-full bg-slate-800/60" />
+                  <div className="h-px w-full bg-slate-800/80 my-2" />
                   <div>
-                    <span className="text-[11px] font-bold text-rose-400 uppercase tracking-wider block mb-3">Missing</span>
-                    <div className="space-y-2.5">
-                      {Object.entries(completeness).map(([key, isComplete]) => 
-                        !isComplete ? (
-                          <div key={key} className="flex items-center gap-2.5 text-sm font-medium text-slate-400 bg-slate-900/50 px-3 py-1.5 rounded-lg border border-slate-800/50 transition-all duration-500">
-                            <XCircle className="w-4 h-4 text-rose-500/50" />
-                            {key}
+                    <span className="text-[10px] font-bold text-rose-400 uppercase tracking-wider block mb-2.5">
+                      To Increase Priority Score:
+                    </span>
+                    <div className="space-y-2">
+                      {Object.entries(completeness).map(([key, isComplete]) => {
+                        if (isComplete) return null;
+                        const tipMap: Record<string, { label: string; boost: string }> = {
+                          Title: { label: 'Add a descriptive title', boost: '+25%' },
+                          Description: { label: 'Describe the issue (>10 chars)', boost: '+35%' },
+                          Location: { label: 'Select or detect location', boost: '+20%' },
+                          Image: { label: 'Attach photo/evidence', boost: '+10%' }
+                        };
+                        const tip = tipMap[key] || { label: key, boost: '+10%' };
+                        return (
+                          <div key={key} className="flex items-center justify-between text-xs font-medium text-slate-400 bg-slate-950/60 px-3 py-2 rounded-xl border border-slate-800/80 transition-all">
+                            <span className="flex items-center gap-2">
+                              <XCircle className="w-3.5 h-3.5 text-rose-400/70 shrink-0" />
+                              <span>{tip.label}</span>
+                            </span>
+                            <span className="text-[10px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded-md">
+                              {tip.boost}
+                            </span>
                           </div>
-                        ) : null
-                      )}
+                        );
+                      })}
                     </div>
                   </div>
                 </>
