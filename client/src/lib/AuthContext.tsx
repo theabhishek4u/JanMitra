@@ -37,9 +37,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (!active) return;
       if (session) {
         const role = (session.user.user_metadata?.role as ProfileData['role']) || 'citizen';
-        loadProfile(session.user.id, role).finally(() => {
-          if (active) setLoading(false);
-        });
+        const instantProfile: ProfileData = {
+          id: session.user.id,
+          full_name: session.user.user_metadata?.full_name || (session.user.email?.startsWith('theabhishek') ? 'Abhishek Kumar' : (role === 'mp' ? 'Dr. Vikram Singh' : 'Aarav Sharma')),
+          email: session.user.email,
+          role: role,
+          state: 'Uttar Pradesh',
+          district: role === 'mp' ? 'Lucknow' : 'Varanasi',
+        };
+        setUser(instantProfile);
+        setLoading(false);
+
+        loadProfile(session.user.id, role);
       } else {
         setUser(null);
         setLoading(false);

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, MapPin, Loader2, ArrowRight, CheckCircle2, Clock, AlertTriangle, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
+import { suggestionService } from '@/services/suggestionService';
 
 interface Suggestion {
   id: string;
@@ -31,16 +32,34 @@ export default function AdminComplaintsList() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/api/suggestions`)
-      .then(res => res.json())
-      .then(data => {
-        setComplaints(data);
-        setLoading(false);
-      })
-      .catch(err => {
+    const load = async () => {
+      try {
+        const res = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/api/suggestions`, { signal: AbortSignal.timeout(1500) });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setComplaints(data);
+            setLoading(false);
+            return;
+          }
+        }
+      } catch {
+        // Fallback to Supabase
+      }
+
+      try {
+        const sbData = await suggestionService.fetchSuggestions();
+        if (Array.isArray(sbData)) {
+          setComplaints(sbData as unknown as Suggestion[]);
+        }
+      } catch (err) {
         console.error(err);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    load();
   }, []);
 
   return (
