@@ -93,6 +93,7 @@ export default function InteractiveGrievanceMap({
   activeLayer
 }: InteractiveGrievanceMapProps) {
   const [mounted, setMounted] = React.useState(false);
+  const [mapStyle, setMapStyle] = React.useState<'dark' | 'satellite' | 'street'>('dark');
   useEffect(() => {
     setMounted(false);
     const t = setTimeout(() => setMounted(true), 50);
@@ -126,16 +127,68 @@ export default function InteractiveGrievanceMap({
 
   return (
     <div className="w-full h-full min-h-[550px] relative z-0 rounded-3xl overflow-hidden border border-[#1e293b]/40">
+      {/* Floating Basemap Style Switcher (No API Key Required) */}
+      <div className="absolute top-3 right-3 z-[500] flex items-center bg-[#0b0f19]/90 backdrop-blur-md p-1 rounded-xl border border-slate-800 shadow-xl gap-1">
+        <button
+          type="button"
+          onClick={() => setMapStyle('dark')}
+          className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all cursor-pointer ${
+            mapStyle === 'dark'
+              ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/25'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+          }`}
+        >
+          🌙 Dark GIS
+        </button>
+        <button
+          type="button"
+          onClick={() => setMapStyle('satellite')}
+          className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all cursor-pointer ${
+            mapStyle === 'satellite'
+              ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/25'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+          }`}
+        >
+          🛰️ Satellite
+        </button>
+        <button
+          type="button"
+          onClick={() => setMapStyle('street')}
+          className={`px-2.5 py-1 text-[10px] font-bold rounded-lg transition-all cursor-pointer ${
+            mapStyle === 'street'
+              ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/25'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+          }`}
+        >
+          🗺️ Street
+        </button>
+      </div>
+
       <MapContainer 
         center={mapCenter} 
         zoom={mapZoom} 
         zoomControl={false} 
         style={{ height: '100%', width: '100%', background: '#0a0d1e' }}
       >
-        <TileLayer
-          attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        />
+        {mapStyle === 'dark' && (
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            className="dark-map-tiles"
+          />
+        )}
+        {mapStyle === 'satellite' && (
+          <TileLayer
+            attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS'
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          />
+        )}
+        {mapStyle === 'street' && (
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        )}
         
         <MapController center={mapCenter} zoom={mapZoom} />
 
