@@ -13,3 +13,4 @@ export const getApiUrl = (endpoint: string): string => {
 };
 
 export default API_BASE_URL;
+
