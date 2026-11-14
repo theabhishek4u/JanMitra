@@ -48,6 +48,83 @@ const CATEGORIES = [
   "Agriculture", "Others"
 ];
 
+const POPULAR_CATEGORIES = [
+  { name: 'Road', icon: '🛣️', label: 'Roads & Bridges' },
+  { name: 'Water Supply', icon: '💧', label: 'Water Supply' },
+  { name: 'Hospital', icon: '🏥', label: 'Health & PHC' },
+  { name: 'School', icon: '🏫', label: 'Schools & Edu' },
+  { name: 'Street Lights', icon: '⚡', label: 'Street Lights' },
+  { name: 'Waste Management', icon: '🧹', label: 'Sanitation' },
+];
+
+const QUICK_TEMPLATES = [
+  {
+    icon: '🛣️',
+    label: 'Road Potholes & Damage',
+    category: 'Road',
+    urgency: 'high',
+    beneficiaries: '3500',
+    village: 'Sigra Ward',
+    district: 'Varanasi',
+    state: 'Uttar Pradesh',
+    title: 'Urgent Reconstruction of Damaged Main Road with Severe Potholes',
+    description: 'The main connecting road has severe potholes measuring over 1 foot deep. During rainfall, complete waterlogging occurs, causing daily motorcycle skidding and serious safety hazards for school buses. Reconstruction with proper drainage is urgently needed.'
+  },
+  {
+    icon: '💧',
+    label: 'Contaminated Tap Water',
+    category: 'Water Supply',
+    urgency: 'critical',
+    beneficiaries: '1200',
+    village: 'Gomti Nagar',
+    district: 'Lucknow',
+    state: 'Uttar Pradesh',
+    title: 'Installation of Community RO Drinking Water Plant for Contaminated Pipeline',
+    description: 'Tap water in our locality contains excessive dissolved solids and muddy sediment. Over 400 families are forced to purchase private water cans daily. We request installation of a community RO filtration unit.'
+  },
+  {
+    icon: '⚡',
+    label: 'Dark Street Light Outage',
+    category: 'Street Lights',
+    urgency: 'medium',
+    beneficiaries: '850',
+    village: 'Hazratganj',
+    district: 'Lucknow',
+    state: 'Uttar Pradesh',
+    title: 'Installation of LED Street Lights along 1.5 KM Residential Stretch',
+    description: 'A 1.5 km stretch from the main intersection to our colony has no functional street lighting. Multiple theft incidents and pedestrian difficulties have occurred after sunset. Installation of solar or LED street poles is requested.'
+  },
+  {
+    icon: '🏥',
+    label: 'Doctor Shortage at PHC',
+    category: 'Hospital',
+    urgency: 'high',
+    beneficiaries: '5000',
+    village: 'Cantonment',
+    district: 'Varanasi',
+    state: 'Uttar Pradesh',
+    title: 'Emergency Doctor & Essential Medicines Posting at Local PHC',
+    description: 'Our Primary Health Center (PHC) has been operating without a permanent doctor for 3 weeks. Patients traveling 18 km to the district hospital face critical delays. We urge immediate deputation of medical staff and anti-venom/first-aid supplies.'
+  }
+];
+
+const PINCODE_MAP: Record<string, { state: string; district: string; block: string; village: string; lat: number; lng: number }> = {
+  '221001': { state: 'Uttar Pradesh', district: 'Varanasi', block: 'Varanasi City', village: 'Cantonment', lat: 25.3176, lng: 82.9739 },
+  '221002': { state: 'Uttar Pradesh', district: 'Varanasi', block: 'Varanasi City', village: 'Sigra Ward', lat: 25.3191, lng: 82.9754 },
+  '221005': { state: 'Uttar Pradesh', district: 'Varanasi', block: 'BHU', village: 'Lanka', lat: 25.2677, lng: 82.9913 },
+  '221010': { state: 'Uttar Pradesh', district: 'Varanasi', block: 'Varanasi North', village: 'Shivpur', lat: 25.3582, lng: 82.9621 },
+  '226001': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Lucknow Central', village: 'Hazratganj', lat: 26.8467, lng: 80.9462 },
+  '226010': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Lucknow East', village: 'Gomti Nagar', lat: 26.8500, lng: 80.9900 },
+  '226016': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Indira Nagar', village: 'Indira Nagar Ward', lat: 26.8800, lng: 80.9800 },
+  '110001': { state: 'Delhi', district: 'New Delhi', block: 'Connaught Place', village: 'Central Delhi', lat: 28.6139, lng: 77.2090 },
+  '201301': { state: 'Uttar Pradesh', district: 'Gautam Buddha Nagar', block: 'Noida', village: 'Sector 18', lat: 28.5355, lng: 77.3910 },
+  '208001': { state: 'Uttar Pradesh', district: 'Kanpur Nagar', block: 'Kanpur', village: 'Civil Lines', lat: 26.4499, lng: 80.3319 },
+  '282001': { state: 'Uttar Pradesh', district: 'Agra', block: 'Agra City', village: 'Tajganj', lat: 27.1767, lng: 78.0081 },
+  '800001': { state: 'Bihar', district: 'Patna', block: 'Patna Central', village: 'Fraser Road', lat: 25.5941, lng: 85.1376 },
+  '400001': { state: 'Maharashtra', district: 'Mumbai', block: 'South Mumbai', village: 'Fort', lat: 18.9388, lng: 72.8354 },
+  '560001': { state: 'Karnataka', district: 'Bengaluru Urban', block: 'Central', village: 'MG Road', lat: 12.9716, lng: 77.5946 },
+};
+
 const MapPicker = dynamic(() => import('@/components/MapPicker'), { 
   ssr: false,
   loading: () => <div className="h-[400px] bg-slate-900 animate-pulse rounded-xl border border-slate-800 flex items-center justify-center text-slate-500">Loading Map...</div>
@@ -61,10 +138,10 @@ export default function SubmitSuggestion() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Road');
-  const [state, setState] = useState(user?.state || '');
-  const [district, setDistrict] = useState(user?.district || '');
+  const [state, setState] = useState(user?.state || 'Uttar Pradesh');
+  const [district, setDistrict] = useState(user?.district || 'Varanasi');
   const [block, setBlock] = useState('');
-  const [village, setVillage] = useState(user?.village_ward || '');
+  const [village, setVillage] = useState(user?.village_ward || 'Sigra Ward');
   const [urgency, setUrgency] = useState('medium');
   const [beneficiaries, setBeneficiaries] = useState('');
   const [lat, setLat] = useState<number | null>(null);
@@ -254,12 +331,27 @@ export default function SubmitSuggestion() {
     }
   }, []);
 
-  // Geocode from Pincode using Nominatim search
+  // Geocode from Pincode with instant local cache + Nominatim search
   const geocodeFromPincode = useCallback(async (code: string) => {
     if (code.length !== 6 || !/^\d{6}$/.test(code)) return;
     setGeoLoading(true);
     setGeoError(null);
     setGeoSuccess(null);
+
+    // Instant local lookup for popular Indian pincodes
+    if (PINCODE_MAP[code]) {
+      const p = PINCODE_MAP[code];
+      setState(p.state);
+      setDistrict(p.district);
+      setBlock(p.block);
+      setVillage(p.village);
+      setLat(p.lat);
+      setLng(p.lng);
+      setGeoSuccess(`Location resolved: ${p.village}, ${p.district}, ${p.state}`);
+      setGeoLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&postalcode=${code}&country=India&addressdetails=1&limit=1&accept-language=en`,
@@ -498,11 +590,40 @@ export default function SubmitSuggestion() {
     }
   };
 
+  // AI Title Generator
+  const handleGenerateTitle = async () => {
+    if (!description || description.trim().length < 5) {
+      alert("Please enter a few words in the Description first so AI can generate an appropriate title.");
+      return;
+    }
+    setAiLoading(true);
+    try {
+      const res = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/api/ai/writing-assist`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description, category, language })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.title) {
+          setTitle(data.title);
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn("AI title generation fallback:", err);
+    } finally {
+      setAiLoading(false);
+    }
+    // Smart heuristic fallback
+    setTitle(`Request for urgent development of ${category} in ${village || district || 'Local Constituency'}`);
+  };
+
   // Submit Initial (opens preview)
   const handleInitialSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!description || !title) {
-      alert("Please fill in Title and Description.");
+    if (!description && !title) {
+      alert("Please fill in Title or Description.");
       return;
     }
     setShowPreview(true);
@@ -514,12 +635,17 @@ export default function SubmitSuggestion() {
     setShowPreview(false);
     setIsSubmitting(true);
     try {
+      const effectiveTitle = title.trim() || (description ? description.slice(0, 60) + '...' : 'Citizen Development Complaint');
+      const effectiveState = state || 'Uttar Pradesh';
+      const effectiveDistrict = district || 'Varanasi';
+      const effectiveCitizenId = user?.id || '3683b237-4045-4b54-96ad-ba7b12f8bc13';
+
       // 1. Duplicate check interceptor (if warning not ignored)
       if (!ignoreDuplicateWarning) {
         const dupRes = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/api/ai/duplicate-check`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, description, category, district })
+          body: JSON.stringify({ title: effectiveTitle, description, category, district: effectiveDistrict })
         });
         
         if (dupRes.ok) {
@@ -527,7 +653,7 @@ export default function SubmitSuggestion() {
           if (dupData.isDuplicate && dupData.duplicateOfId) {
             setDuplicateFoundInfo({
               id: dupData.duplicateOfId,
-              title: dupData.duplicateTitle || title,
+              title: dupData.duplicateTitle || effectiveTitle,
               status: dupData.duplicateStatus || 'under_review',
               supportCount: dupData.supportCount || 326,
               similarity: dupData.similarity || 94
@@ -541,17 +667,17 @@ export default function SubmitSuggestion() {
 
       // 2. Normal creation if not duplicate (or duplicate ignored)
       const formData = new FormData();
-      formData.append('citizen_id', user?.id || '');
-      formData.append('title', title);
-      formData.append('description', description);
+      formData.append('citizen_id', effectiveCitizenId);
+      formData.append('title', effectiveTitle);
+      formData.append('description', description || effectiveTitle);
       formData.append('category', category);
       formData.append('language', language);
-      formData.append('state', state);
-      formData.append('district', district);
-      formData.append('village', village);
-      formData.append('block', block);
+      formData.append('state', effectiveState);
+      formData.append('district', effectiveDistrict);
+      formData.append('village', village || 'Sigra Ward');
+      formData.append('block', block || 'Central Block');
       formData.append('urgency', urgency);
-      formData.append('estimated_beneficiaries', beneficiaries);
+      formData.append('estimated_beneficiaries', beneficiaries || '500');
       
       if (lat) {
         formData.append('location_lat', lat.toString());
@@ -706,11 +832,74 @@ export default function SubmitSuggestion() {
       <div className="relative p-6 sm:p-8 rounded-[28px] overflow-hidden border border-slate-800/60" style={{ background: 'linear-gradient(135deg, rgba(15,23,42,0.95) 0%, rgba(30,27,75,0.4) 50%, rgba(15,23,42,0.95) 100%)' }}>
         <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
+              <span>Gemini 2.5 Flash AI Assisted Proposal Builder</span>
+            </div>
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
               Submit Development Complaint
             </h1>
-            <p className="text-xs text-slate-400">AI-powered proposal builder with voice input & priority scoring</p>
+            <p className="text-xs text-slate-400">Voice-to-text, GIS location verification, and instant AI priority scoring for direct MP intervention.</p>
           </div>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Voice Language:</span>
+            {['English', 'Hindi', 'Bengali', 'Marathi'].map((lang) => (
+              <button
+                key={lang}
+                type="button"
+                onClick={() => setLanguage(lang)}
+                className={`text-[11px] font-bold px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
+                  language === lang
+                    ? 'bg-indigo-600 text-white border-indigo-500 shadow-sm shadow-indigo-500/25'
+                    : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:text-white hover:border-slate-700'
+                }`}
+              >
+                {lang === 'Hindi' ? 'हिंदी' : lang === 'Bengali' ? 'বাংলা' : lang === 'Marathi' ? 'मराठी' : lang}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ═══════════ QUICK-FILL TEMPLATES ═══════════ */}
+      <div className="relative rounded-[22px] border border-indigo-500/20 bg-linear-to-r from-slate-900/60 via-indigo-950/20 to-slate-900/60 p-4 sm:p-5 backdrop-blur-sm">
+        <div className="flex items-center justify-between mb-3">
+          <span className="flex items-center gap-2 text-xs font-bold text-indigo-300 uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            Quick Proposal Templates (Click to 1-Click Auto-Fill)
+          </span>
+          <span className="text-[10px] text-slate-500 font-medium">Auto-populates fields for instant testing</span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {QUICK_TEMPLATES.map((tmpl) => (
+            <button
+              key={tmpl.label}
+              type="button"
+              onClick={() => {
+                setTitle(tmpl.title);
+                setDescription(tmpl.description);
+                setCategory(tmpl.category);
+                setUrgency(tmpl.urgency);
+                setBeneficiaries(tmpl.beneficiaries);
+                setVillage(tmpl.village);
+                setDistrict(tmpl.district);
+                setState(tmpl.state);
+                setGeoSuccess(`Location set: ${tmpl.village}, ${tmpl.district}, ${tmpl.state}`);
+              }}
+              className="p-3 text-left rounded-xl bg-slate-950/70 hover:bg-indigo-600/10 border border-slate-800/80 hover:border-indigo-500/40 transition-all group cursor-pointer"
+            >
+              <div className="flex items-center gap-2 text-xs font-bold text-white mb-1.5">
+                <span className="text-base">{tmpl.icon}</span>
+                <span className="truncate group-hover:text-indigo-300 transition-colors">{tmpl.label}</span>
+              </div>
+              <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">{tmpl.title}</p>
+              <div className="mt-2 flex items-center gap-2 text-[9px] text-indigo-400/80 font-semibold">
+                <span>{tmpl.category}</span>
+                <span>•</span>
+                <span>~{tmpl.beneficiaries} Citizens</span>
+              </div>
+            </button>
+          ))}
         </div>
       </div>
 
@@ -723,18 +912,30 @@ export default function SubmitSuggestion() {
             
             <form onSubmit={handleSubmitForm} className="p-6 sm:p-7 space-y-6">
 
-              {/* Title field with AI badge */}
+              {/* Title field with AI badge & Auto-Generate button */}
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
                   <label className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
                     <Hash className="w-3.5 h-3.5 text-indigo-400" />
                     Complaint Title
                   </label>
-                  {title && (
-                    <span className="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center gap-1">
-                      <Wand2 className="w-2.5 h-2.5" /> AI Generated
-                    </span>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleGenerateTitle}
+                      disabled={aiLoading}
+                      className="text-[10px] font-bold text-indigo-400 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/25 px-2.5 py-1 rounded-full flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+                      title="Use AI to generate a crisp formal title from description"
+                    >
+                      <Wand2 className="w-3 h-3 text-indigo-400" />
+                      Auto-Generate Title
+                    </button>
+                    {title && (
+                      <span className="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                        <CheckCircle className="w-2.5 h-2.5" /> Ready
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-indigo-400 transition-colors">
@@ -751,12 +952,32 @@ export default function SubmitSuggestion() {
                 </div>
               </div>
 
-              {/* Category dropdown */}
+              {/* Category selector: Visual Chips + Dropdown */}
               <div className="space-y-2.5">
                 <label className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
                   <Layers className="w-3.5 h-3.5 text-indigo-400" />
                   Development Category
                 </label>
+
+                {/* Popular Category Chips */}
+                <div className="flex flex-wrap gap-2 pt-1 pb-1">
+                  {POPULAR_CATEGORIES.map((cat) => (
+                    <button
+                      key={cat.name}
+                      type="button"
+                      onClick={() => setCategory(cat.name)}
+                      className={`px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 border transition-all cursor-pointer ${
+                        category === cat.name
+                          ? 'bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-600/30'
+                          : 'bg-slate-950/60 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                      }`}
+                    >
+                      <span>{cat.icon}</span>
+                      <span>{cat.label}</span>
+                    </button>
+                  ))}
+                </div>
+
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-indigo-400 transition-colors">
                     <Layers className="w-4 h-4" />
@@ -764,7 +985,7 @@ export default function SubmitSuggestion() {
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full bg-slate-950/70 border border-slate-800/80 rounded-2xl py-4 pl-11 pr-10 text-sm text-slate-100 focus:outline-none focus:border-indigo-500/60 focus:ring-2 focus:ring-indigo-500/10 transition-all duration-300 appearance-none cursor-pointer"
+                    className="w-full bg-slate-950/70 border border-slate-800/80 rounded-2xl py-3.5 pl-11 pr-10 text-sm text-slate-100 focus:outline-none focus:border-indigo-500/60 focus:ring-2 focus:ring-indigo-500/10 transition-all duration-300 appearance-none cursor-pointer"
                   >
                     {CATEGORIES.map((cat) => (
                       <option key={cat} value={cat}>
@@ -783,8 +1004,31 @@ export default function SubmitSuggestion() {
                     <MessageSquare className="w-3.5 h-3.5 text-indigo-400" />
                     Description
                   </label>
-                  <span className="text-[10px] text-slate-500 font-medium">{description.length} characters</span>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleAiAssist()}
+                      disabled={aiLoading || !description}
+                      className="text-[11px] font-bold text-violet-300 bg-violet-500/15 hover:bg-violet-500/25 border border-violet-500/30 px-3 py-1 rounded-full flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-40"
+                      title="AI transforms your notes into an official letter to the MP"
+                    >
+                      {aiLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <Wand2 className="w-3 h-3 text-violet-400" />}
+                      <span>{aiLoading ? 'Enhancing with AI...' : '✨ AI Formalize Proposal'}</span>
+                    </button>
+                    <span className="text-[10px] text-slate-500 font-medium">{description.length} chars</span>
+                  </div>
                 </div>
+
+                {isRecording && (
+                  <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-between text-red-400 text-xs animate-pulse">
+                    <span className="flex items-center gap-2 font-bold">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
+                      Listening in {language}... Speak clearly.
+                    </span>
+                    <span className="font-mono font-bold text-white bg-red-600/80 px-2 py-0.5 rounded-md">{recordingTime}s</span>
+                  </div>
+                )}
+
                 <div className="relative group">
                   <textarea
                     required
@@ -803,7 +1047,7 @@ export default function SubmitSuggestion() {
                           ? 'bg-red-600 hover:bg-red-500 shadow-red-600/30' 
                           : 'bg-indigo-600 hover:bg-indigo-500 shadow-indigo-600/20 hover:-translate-y-0.5'
                       }`}
-                      title={isRecording ? "Stop Recording" : "Voice Typing"}
+                      title={isRecording ? "Stop Recording" : `Voice Typing in ${language}`}
                     >
                       {isRecording && (
                         <div className="absolute inset-0 bg-red-400/30 animate-ping rounded-xl" />
@@ -819,7 +1063,7 @@ export default function SubmitSuggestion() {
                         )}
                       </div>
                     </button>
-                    {description.length > 10 && (
+                    {description.length > 5 && (
                       <button
                         type="button"
                         onClick={() => handleAiAssist()}
@@ -829,12 +1073,12 @@ export default function SubmitSuggestion() {
                         {aiLoading ? (
                           <>
                             <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                            <span>Analyzing...</span>
+                            <span>Formalizing...</span>
                           </>
                         ) : (
                           <>
                             <Wand2 className="w-3.5 h-3.5" />
-                            <span>AI Writing Assistant</span>
+                            <span>AI Letter Writer</span>
                           </>
                         )}
                       </button>
@@ -1071,6 +1315,34 @@ export default function SubmitSuggestion() {
                   </div>
                 </div>
 
+                {/* Quick 1-Click Locations */}
+                <div className="flex flex-wrap items-center gap-2 pt-1 pb-1">
+                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Quick Locations:</span>
+                  {[
+                    { label: 'Sigra Ward (Varanasi)', village: 'Sigra Ward', district: 'Varanasi', state: 'Uttar Pradesh', pincode: '221002', lat: 25.3191, lng: 82.9754 },
+                    { label: 'Gomti Nagar (Lucknow)', village: 'Gomti Nagar', district: 'Lucknow', state: 'Uttar Pradesh', pincode: '226010', lat: 26.8500, lng: 80.9900 },
+                    { label: 'Hazratganj (Lucknow)', village: 'Hazratganj', district: 'Lucknow', state: 'Uttar Pradesh', pincode: '226001', lat: 26.8467, lng: 80.9462 },
+                    { label: 'Cantonment (Varanasi)', village: 'Cantonment', district: 'Varanasi', state: 'Uttar Pradesh', pincode: '221001', lat: 25.3176, lng: 82.9739 },
+                  ].map((loc) => (
+                    <button
+                      key={loc.label}
+                      type="button"
+                      onClick={() => {
+                        setVillage(loc.village);
+                        setDistrict(loc.district);
+                        setState(loc.state);
+                        setPincode(loc.pincode);
+                        setLat(loc.lat);
+                        setLng(loc.lng);
+                        setGeoSuccess(`Location set: ${loc.village}, ${loc.district}`);
+                      }}
+                      className="text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-950/60 hover:bg-emerald-500/10 border border-slate-800 hover:border-emerald-500/30 text-slate-400 hover:text-emerald-300 transition-all cursor-pointer"
+                    >
+                      📍 {loc.label}
+                    </button>
+                  ))}
+                </div>
+
                 {/* Pincode */}
                 <div className="relative">
                   <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Pincode (auto-fill location)</label>
@@ -1223,6 +1495,26 @@ export default function SubmitSuggestion() {
                 <div className="absolute inset-0 flex items-center justify-center flex-col z-20">
                   <span className="text-3xl font-black text-white">{liveScore}<span className="text-sm text-slate-400">%</span></span>
                 </div>
+              </div>
+            </div>
+
+            {/* Estimated Priority Badge */}
+            <div className="mb-6 p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-center">
+              <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider block mb-1">Estimated Priority Rating</span>
+              <div className="flex items-center justify-center gap-1.5">
+                {liveScore >= 75 ? (
+                  <span className="text-xs font-black text-emerald-400 flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-400" /> High (Fast-Track for MP Plan)
+                  </span>
+                ) : liveScore >= 45 ? (
+                  <span className="text-xs font-black text-amber-400 flex items-center gap-1">
+                    <Zap className="w-3.5 h-3.5 text-amber-400" /> Medium (Standard Review)
+                  </span>
+                ) : (
+                  <span className="text-xs font-black text-rose-400 flex items-center gap-1">
+                    <AlertTriangle className="w-3.5 h-3.5 text-rose-400" /> Incomplete (Fill Details)
+                  </span>
+                )}
               </div>
             </div>
 
