@@ -78,7 +78,7 @@ export const getWritingAssist = async (req: Request, res: Response) => {
 
   try {
     const prompt = `
-      You are an AI Writing Assistant for a citizen portal called "Janmitra AI".
+      You are an AI Writing Assistant for a citizen portal called "Jansunwai AI".
       Citizens submit development suggestions (NOT complaints) to their MP.
       
       User's Category: "${category || 'General'}"
@@ -150,7 +150,7 @@ export const processVoiceSuggestion = async (req: Request, res: Response) => {
     const language = req.body.language || 'English';
 
     const prompt = `
-      You are an AI Speech-to-Text and structuring system for "Janmitra AI".
+      You are an AI Speech-to-Text and structuring system for "Jansunwai AI".
       Below is an audio recording of a citizen explaining a development suggestion.
       The user explicitly selected their preferred language as: "${language}".
       
@@ -242,7 +242,7 @@ export const analyzeSuggestion = async (req: Request, res: Response) => {
     }
 
     const prompt = `
-      You are an AI Auditor for the "Janmitra AI" platform. 
+      You are an AI Auditor for the "Jansunwai AI" platform. 
       Analyze the submitted citizen development suggestion:
       
       Title: "${title || ''}"
@@ -324,7 +324,7 @@ export const analyzeUploadedImage = async (req: Request, res: Response) => {
     }];
 
     const prompt = `
-      You are an AI Image Analyzer for the "Janmitra AI" platform. 
+      You are an AI Image Analyzer for the "Jansunwai AI" platform. 
       Look at this uploaded photo of a civic issue (e.g., road damage, water logging, garbage, school building condition, hospital condition).
       
       Identify the core issue.
@@ -408,7 +408,7 @@ export const checkDuplicate = async (req: Request, res: Response) => {
     }));
 
     const prompt = `
-      You are an AI Duplicate Detector for "Janmitra AI".
+      You are an AI Duplicate Detector for "Jansunwai AI".
       We want to avoid duplicate planning tasks for the Member of Parliament.
       
       New suggestion:

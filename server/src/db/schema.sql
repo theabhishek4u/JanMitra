@@ -596,7 +596,7 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO auth.users (id, email, encrypted_password, email_confirmed_at, role, aud, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, instance_id) VALUES
 (
   'd7b00000-0000-0000-0000-000000000001',
-  'citizen@janmitra.gov.in',
+  'citizen@jansunwai.gov.in',
   crypt('password', gen_salt('bf')),
   now(),
   'authenticated',
@@ -609,7 +609,7 @@ INSERT INTO auth.users (id, email, encrypted_password, email_confirmed_at, role,
 ),
 (
   'd7b00000-0000-0000-0000-000000000002',
-  'mp@janmitra.gov.in',
+  'mp@jansunwai.gov.in',
   crypt('password', gen_salt('bf')),
   now(),
   'authenticated',
@@ -622,7 +622,7 @@ INSERT INTO auth.users (id, email, encrypted_password, email_confirmed_at, role,
 ),
 (
   'd7b00000-0000-0000-0000-000000000003',
-  'admin@janmitra.gov.in',
+  'admin@jansunwai.gov.in',
   crypt('password', gen_salt('bf')),
   now(),
   'authenticated',

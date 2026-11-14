@@ -16,11 +16,11 @@ export const deleteCookie = (name: string) => {
 };
 
 // Local storage session key for local demo simulation fallback
-const LOCAL_SESSION_KEY = 'janmitra-demo-session';
+const LOCAL_SESSION_KEY = 'jansunwai-demo-session';
 
 const getLocalDemoSession = (): Session | null => {
   if (typeof window === 'undefined') return null;
-  const stored = localStorage.getItem(LOCAL_SESSION_KEY) || localStorage.getItem('jansunwai-demo-session');
+  const stored = localStorage.getItem(LOCAL_SESSION_KEY) || localStorage.getItem('janmitra-demo-session');
   if (!stored) return null;
   try {
     return JSON.parse(stored) as Session;

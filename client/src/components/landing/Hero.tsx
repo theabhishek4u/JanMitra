@@ -229,7 +229,7 @@ export function Hero() {
                     <Activity className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold uppercase tracking-wider">Janmitra AI Assistant</h4>
+                    <h4 className="text-xs font-bold uppercase tracking-wider">Jansunwai AI Assistant</h4>
                     <p className="text-[10px] text-muted-foreground font-mono">Real-Time Grievance Feed</p>
                   </div>
                 </div>

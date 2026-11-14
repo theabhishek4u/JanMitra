@@ -44,7 +44,7 @@ export function ManualVsAI() {
             Comparison Matrix
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3">
-            Traditional Portals vs. <span className="gradient-text">Janmitra AI</span>
+            Traditional Portals vs. <span className="gradient-text">Jansunwai AI</span>
           </h2>
           <p className="text-muted-foreground text-sm max-w-xl mx-auto">
             See how smart automation eliminates the friction, delays, and lack of transparency of manual governance.
@@ -91,11 +91,11 @@ export function ManualVsAI() {
                 </div>
               </div>
 
-              {/* Janmitra AI (Positive) */}
+              {/* Jansunwai AI (Positive) */}
               <div className="md:col-span-4 bg-emerald-500/5 border border-emerald-500/15 hover:border-emerald-500/35 hover:shadow-[0_0_15px_rgba(16,185,129,0.03)] rounded-xl p-4.5 flex items-start gap-3 h-full transition-all shadow-[0_4px_20px_rgba(16,185,129,0.01)]">
                 <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-xs text-emerald-400 block mb-1 uppercase tracking-wider">Janmitra AI</span>
+                  <span className="font-bold text-xs text-emerald-400 block mb-1 uppercase tracking-wider">Jansunwai AI</span>
                   <p className="text-[12px] text-muted-foreground leading-relaxed">
                     {item.ai}
                   </p>

@@ -32,7 +32,7 @@ export function ROICalculator() {
             Constituency <span className="gradient-text">ROI Calculator</span>
           </h2>
           <p className="text-muted-foreground text-sm max-w-xl mx-auto">
-            Estimate the monthly time and taxpayer money saved when implementing Janmitra AI in your constituency.
+            Estimate the monthly time and taxpayer money saved when implementing Jansunwai AI in your constituency.
           </p>
         </motion.div>
 

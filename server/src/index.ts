@@ -56,5 +56,5 @@ app.get('/health', (req, res) => {
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`Janmitra AI Backend is running on port ${PORT}`);
+  console.log(`Jansunwai AI Backend is running on port ${PORT}`);
 });

@@ -270,7 +270,7 @@ export default function LandingPage() {
                   <div className="w-8 h-8 rounded-lg bg-muted border border-border/60 flex items-center justify-center text-gov-blue shrink-0">
                     <Mail className="w-3.5 h-3.5" />
                   </div>
-                  <a href="mailto:support@janmitra.gov.in" className="text-foreground/80 hover:text-foreground transition-colors">support@janmitra.gov.in</a>
+                  <a href="mailto:support@jansunwai.gov.in" className="text-foreground/80 hover:text-foreground transition-colors">support@jansunwai.gov.in</a>
                 </li>
               </ul>
             </div>
@@ -279,7 +279,7 @@ export default function LandingPage() {
           {/* Bottom Credits */}
           <div className="pt-8 border-t border-border/20 flex flex-col md:flex-row items-center justify-center">
             <p className="text-[10px] text-muted-foreground text-center">
-              © 2026 Janmitra AI — Government of Uttar Pradesh. All rights reserved.
+              © 2026 Jansunwai AI — Government of Uttar Pradesh. All rights reserved.
             </p>
           </div>
         </div>
@@ -325,7 +325,7 @@ export default function LandingPage() {
                 {activeModal === 'privacy' && (
                   <>
                     <p className="font-semibold text-foreground text-sm">1. Data Collection & Privacy Safeguards</p>
-                    <p>At Janmitra AI, we prioritize citizen data protection. We collect GPS coordinates, voice recordings, and text descriptions solely for automated grievance routing. All data is encrypted in transit and at rest using AES-256 protocols.</p>
+                    <p>At Jansunwai AI, we prioritize citizen data protection. We collect GPS coordinates, voice recordings, and text descriptions solely for automated grievance routing. All data is encrypted in transit and at rest using AES-256 protocols.</p>
                     <p className="font-semibold text-foreground text-sm">2. NLP Translation & AI Analysis</p>
                     <p>Citizen voice inputs (in Hindi, Hinglish, etc.) are transcribed and summarized using our localized LLM. The processed text is routed only to authorized government execution portals and public representatives.</p>
                     <p className="font-semibold text-foreground text-sm">3. Third-Party Sharing</p>

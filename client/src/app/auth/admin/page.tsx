@@ -11,7 +11,7 @@ function AdminAuthForm() {
   const router = useRouter();
   const { login, user } = useAuth();
   
-  const [email, setEmail] = useState('admin@janmitra.gov.in');
+  const [email, setEmail] = useState('admin@jansunwai.gov.in');
   const [password, setPassword] = useState('password');
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -85,7 +85,7 @@ function AdminAuthForm() {
               <ShieldCheck className="w-8 h-8 text-cyan-400" />
             </div>
             <h1 className="text-4xl xl:text-5xl font-black text-white mb-4 tracking-tight leading-tight">
-              Janmitra AI <br />
+              Jansunwai AI <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-teal-400">
                 Super Admin Center
               </span>
@@ -150,7 +150,7 @@ function AdminAuthForm() {
               <button
                 type="button"
                 onClick={() => {
-                  setEmail('admin@janmitra.gov.in');
+                  setEmail('admin@jansunwai.gov.in');
                   setPassword('password');
                 }}
                 className="w-full px-3 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 hover:border-cyan-400/50 text-xs font-semibold text-cyan-300 transition-all text-center focus:outline-none"
@@ -171,7 +171,7 @@ function AdminAuthForm() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="admin@janmitra.gov.in"
+                    placeholder="admin@jansunwai.gov.in"
                     className="w-full bg-slate-950/50 border border-slate-700/50 rounded-xl py-3.5 pl-10 pr-4 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all duration-300"
                   />
                 </div>
@@ -216,7 +216,7 @@ function AdminAuthForm() {
           <div className="mt-8 text-center">
             <p className="text-xs font-medium text-slate-500 flex items-center justify-center gap-1.5">
               <Shield className="w-3.5 h-3.5" />
-              Secured by Janmitra Security Protocol
+              Secured by Jansunwai Security Protocol
             </p>
           </div>
         </motion.div>

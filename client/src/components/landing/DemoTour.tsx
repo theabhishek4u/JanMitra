@@ -109,10 +109,10 @@ export function DemoTour() {
         };
       default:
         return {
-          title: "Janmitra AI Guided Tour",
+          title: "Jansunwai AI Guided Tour",
           avatar: "🤖",
           advisorName: "Mitra AI — Master Guide",
-          instruction: "Let's explore Janmitra AI's end-to-end autonomous flow. Click below to enter the Citizen Portal and file an AI-classified complaint.",
+          instruction: "Let's explore Jansunwai AI's end-to-end autonomous flow. Click below to enter the Citizen Portal and file an AI-classified complaint.",
           actionText: "Start Citizen Demo",
           action: () => router.push("/citizen?demo=true"),
           disabled: false,

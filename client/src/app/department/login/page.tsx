@@ -9,17 +9,17 @@ import { motion } from 'framer-motion';
 const API = process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}`;
 
 const DEPARTMENTS = [
-  { id: 'pwd', name: 'Public Works Department (PWD)', email: 'pwd@janmitra.gov.in', officer: 'Rakesh Kumar', category: 'Road' },
-  { id: 'water', name: 'District Water & Sanitation', email: 'water@janmitra.gov.in', officer: 'Sanjay Mishra', category: 'Drainage' },
-  { id: 'health', name: 'Health Department (CMO)', email: 'health@janmitra.gov.in', officer: 'Dr. Alok Srivastava', category: 'PHC' },
-  { id: 'education', name: 'Education Department (BSA)', email: 'education@janmitra.gov.in', officer: 'Sunita Rawat', category: 'School' },
-  { id: 'electricity', name: 'UP Power Corporation (UPPCL)', email: 'uppcl@janmitra.gov.in', officer: 'V. K. Singh', category: 'Street Lights' },
-  { id: 'municipal', name: 'Lucknow Nagar Nigam', email: 'nagarnigam@janmitra.gov.in', officer: 'Indrajeet Singh', category: 'Municipal' }
+  { id: 'pwd', name: 'Public Works Department (PWD)', email: 'pwd@jansunwai.gov.in', officer: 'Rakesh Kumar', category: 'Road' },
+  { id: 'water', name: 'District Water & Sanitation', email: 'water@jansunwai.gov.in', officer: 'Sanjay Mishra', category: 'Drainage' },
+  { id: 'health', name: 'Health Department (CMO)', email: 'health@jansunwai.gov.in', officer: 'Dr. Alok Srivastava', category: 'PHC' },
+  { id: 'education', name: 'Education Department (BSA)', email: 'education@jansunwai.gov.in', officer: 'Sunita Rawat', category: 'School' },
+  { id: 'electricity', name: 'UP Power Corporation (UPPCL)', email: 'uppcl@jansunwai.gov.in', officer: 'V. K. Singh', category: 'Street Lights' },
+  { id: 'municipal', name: 'Lucknow Nagar Nigam', email: 'nagarnigam@jansunwai.gov.in', officer: 'Indrajeet Singh', category: 'Municipal' }
 ];
 
 export default function DepartmentLoginPage() {
   const [departments, setDepartments] = useState(DEPARTMENTS);
-  const [email, setEmail] = useState('pwd@janmitra.gov.in');
+  const [email, setEmail] = useState('pwd@jansunwai.gov.in');
   const [password, setPassword] = useState('password');
   const [selectedDeptId, setSelectedDeptId] = useState('pwd');
   const [loading, setLoading] = useState(false);
@@ -115,7 +115,7 @@ export default function DepartmentLoginPage() {
               <Building2 className="w-8 h-8 text-amber-400" />
             </div>
             <h1 className="text-4xl xl:text-5xl font-black text-white mb-4 tracking-tight leading-tight">
-              Janmitra AI <br />
+              Jansunwai AI <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-400 to-orange-400">
                 Department Portal
               </span>

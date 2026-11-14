@@ -42,8 +42,8 @@
 
   <!-- Typography -->
   <g transform="translate(86, 20)">
-    <text x="0" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="900" letter-spacing="-0.02em" fill="url(#jmTextGrad)">JANMITRA</text>
-    <text x="135" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="900" letter-spacing="0.04em" fill="url(#jmAIGrad)"> AI</text>
+    <text x="0" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="900" letter-spacing="-0.02em" fill="url(#jmTextGrad)">JANSUNWAI</text>
+    <text x="142" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="900" letter-spacing="0.04em" fill="url(#jmAIGrad)"> AI</text>
     <text x="1" y="41" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="800" letter-spacing="0.22em" fill="#94A3B8">AI SMART GOVERNANCE</text>
   </g>
 </svg>

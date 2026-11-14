@@ -131,7 +131,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* Mobile Logo Brand */}
           <div className="flex items-center space-x-2 md:hidden">
             <LogoIcon sizeClass="w-8 h-8" />
-            <span className="font-extrabold text-sm tracking-tight text-white">Janmitra <span className="text-cyan-400">AI</span></span>
+            <span className="font-extrabold text-sm tracking-tight text-white">Jansunwai <span className="text-cyan-400">AI</span></span>
           </div>
 
           <div className="hidden sm:block" />

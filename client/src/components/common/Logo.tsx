@@ -93,7 +93,7 @@ export const Logo: React.FC<LogoProps> = ({
         <div className="leading-tight">
           <div className="flex items-center space-x-1.5">
             <span className={`font-black tracking-tight text-foreground uppercase block ${currentSize.text}`}>
-              JANMITRA
+              JANSUNWAI
             </span>
             <span className={`font-black tracking-wider bg-clip-text text-transparent bg-linear-to-r from-cyan-400 to-indigo-400 ${currentSize.text}`}>
               AI

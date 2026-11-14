@@ -143,7 +143,7 @@ export default function AdminDashboard() {
             <Radio className="w-5 h-5 text-cyan-400 animate-pulse" />
             <span className="bg-clip-text text-transparent bg-linear-to-r from-cyan-400 to-indigo-400">Lucknow District Command Center</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">Real-time citywide overview of Janmitra AI public demand systems</p>
+          <p className="text-xs text-slate-500 mt-0.5">Real-time citywide overview of Jansunwai AI public demand systems</p>
         </div>
         <div className="flex items-center space-x-2">
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
