@@ -112,7 +112,7 @@ const LocateControl = ({ setPosition }: { setPosition: (pos: L.LatLng) => void }
 };
 
 export default function MapPicker({ initialLat, initialLng, onLocationSelect }: MapPickerProps) {
-  const defaultCenter = { lat: initialLat || 25.3176, lng: initialLng || 82.9739 };
+  const defaultCenter = { lat: initialLat || 26.7825, lng: initialLng || 81.0185 };
   const [position, setPosition] = useState<L.LatLng | null>(
     initialLat && initialLng ? L.latLng(initialLat, initialLng) : L.latLng(defaultCenter.lat, defaultCenter.lng)
   );

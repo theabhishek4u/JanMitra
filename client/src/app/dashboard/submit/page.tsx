@@ -176,14 +176,14 @@ export default function SubmitSuggestion() {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Road');
   const [state, setState] = useState(user?.state || 'Uttar Pradesh');
-  const [district, setDistrict] = useState(user?.district || 'Varanasi');
-  const [block, setBlock] = useState('');
-  const [village, setVillage] = useState(user?.village_ward || 'Sigra Ward');
+  const [district, setDistrict] = useState(user?.district || 'Lucknow');
+  const [block, setBlock] = useState('Sushant Golf City');
+  const [village, setVillage] = useState(user?.village_ward || 'The Centrum, Sushant Golf City');
   const [urgency, setUrgency] = useState('medium');
   const [beneficiaries, setBeneficiaries] = useState('');
-  const [lat, setLat] = useState<number | null>(null);
-  const [lng, setLng] = useState<number | null>(null);
-  const [pincode, setPincode] = useState('');
+  const [lat, setLat] = useState<number | null>(26.7825);
+  const [lng, setLng] = useState<number | null>(81.0185);
+  const [pincode, setPincode] = useState(user?.pincode || '226030');
   const [showMapModal, setShowMapModal] = useState(false);
   const [language, setLanguage] = useState(user?.language_preference || 'Hindi');
 
@@ -1444,6 +1444,7 @@ export default function SubmitSuggestion() {
                 <div className="flex flex-wrap items-center gap-2 pt-1 pb-1">
                   <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Quick Locations:</span>
                   {[
+                    { label: 'The Centrum (Lucknow)', village: 'The Centrum, Sushant Golf City', block: 'Sushant Golf City', district: 'Lucknow', state: 'Uttar Pradesh', pincode: '226030', lat: 26.7825, lng: 81.0185 },
                     { label: 'Gomti Nagar (Lucknow)', village: 'Gomti Nagar', block: 'Lucknow East', district: 'Lucknow', state: 'Uttar Pradesh', pincode: '226010', lat: 26.8500, lng: 80.9900 },
                     { label: 'Hazratganj (Lucknow)', village: 'Hazratganj', block: 'Lucknow Central', district: 'Lucknow', state: 'Uttar Pradesh', pincode: '226001', lat: 26.8467, lng: 80.9462 },
                     { label: 'Indira Nagar (Lucknow)', village: 'Indira Nagar', block: 'Indira Nagar', district: 'Lucknow', state: 'Uttar Pradesh', pincode: '226016', lat: 26.8800, lng: 80.9800 },
