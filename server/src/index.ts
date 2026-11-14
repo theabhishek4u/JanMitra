@@ -7,9 +7,14 @@ import mpRoutes from './routes/mp.routes';
 import adminRoutes from './routes/admin.routes';
 import notificationRoutes from './routes/notification.routes';
 import demographicsRoutes from './routes/demographics.routes';
+import path from 'path';
 import { errorHandler } from './middlewares/errorHandler';
 
+// Load environment variables from cwd or server directory
 dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+dotenv.config({ path: path.resolve(process.cwd(), 'server/.env') });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
