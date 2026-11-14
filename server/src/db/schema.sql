@@ -704,3 +704,27 @@ INSERT INTO public.support_votes (user_id, suggestion_id) VALUES
 ('d7b00000-0000-0000-0000-000000000001', 'e5c00000-0000-0000-0000-000000000001'),
 ('d7b00000-0000-0000-0000-000000000002', 'e5c00000-0000-0000-0000-000000000001')
 ON CONFLICT DO NOTHING;
+
+-- ═══════════════════════════════════════════════════════════════
+-- STORAGE BUCKET CONFIGURATION (for image and audio file uploads)
+-- ═══════════════════════════════════════════════════════════════
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('media', 'media', true)
+ON CONFLICT (id) DO UPDATE SET public = true;
+
+-- Storage RLS Policies
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies WHERE schemaname = 'storage' AND tablename = 'objects' AND policyname = 'Public Media Read'
+  ) THEN
+    CREATE POLICY "Public Media Read" ON storage.objects FOR SELECT USING (bucket_id = 'media');
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies WHERE schemaname = 'storage' AND tablename = 'objects' AND policyname = 'Public Media Upload'
+  ) THEN
+    CREATE POLICY "Public Media Upload" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'media');
+  END IF;
+END $$;
+
