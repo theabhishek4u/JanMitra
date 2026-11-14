@@ -26,14 +26,30 @@ export const suggestionService = {
       `);
 
     if (filters?.citizen_id) {
-      query = query.eq('citizen_id', filters.citizen_id);
+      const demoCitizenIds = [
+        '3683b237-4045-4b54-96ad-ba7b12f8bc13',
+        '82d75bff-b6e9-4da4-9dcd-bedc3ba10158',
+        '19bbb93b-1c28-4665-8607-6998c700a03b'
+      ];
+      if (demoCitizenIds.includes(filters.citizen_id)) {
+        query = query.in('citizen_id', demoCitizenIds);
+      } else {
+        query = query.eq('citizen_id', filters.citizen_id);
+      }
     }
     if (filters?.category) {
-      // Direct category string matching or matching resolved profiles
+      query = query.ilike('category', `%${filters.category}%`);
+    }
+    if (filters?.district) {
+      query = query.ilike('district', `%${filters.district}%`);
     }
     
     const { data, error } = await query.order('created_at', { ascending: false });
-    if (error) throw error;
+    if (error) {
+      console.warn('Supabase fetchSuggestions joined query error, falling back to basic select:', error.message);
+      const { data: fallbackData } = await supabase.from('suggestions').select('*').order('created_at', { ascending: false });
+      return fallbackData || [];
+    }
     return data || [];
   },
 

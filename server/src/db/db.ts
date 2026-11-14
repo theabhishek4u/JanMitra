@@ -47,24 +47,36 @@ if (isSupabaseConfigured) {
 export const db = {
   getProfile: async (id: string): Promise<Profile | null> => {
     if (supabase) {
-      const { data, error } = await supabase
-        .from('profiles')
+      const { data: citizen } = await supabase
+        .from('citizen_profiles')
         .select('*')
         .eq('id', id)
-        .single();
-      if (error) {
-        // Fallback to mock profiles in case profile is just in memory during development
-        return mockDb.getProfile(id);
-      }
-      return data;
+        .maybeSingle();
+      if (citizen) return { ...citizen, role: 'citizen' };
+
+      const { data: mp } = await supabase
+        .from('mp_profiles')
+        .select('*')
+        .eq('id', id)
+        .maybeSingle();
+      if (mp) return { ...mp, role: 'mp' };
+
+      const { data: admin } = await supabase
+        .from('admin_profiles')
+        .select('*')
+        .eq('id', id)
+        .maybeSingle();
+      if (admin) return { ...admin, role: 'admin' };
     }
     return mockDb.getProfile(id);
   },
 
   upsertProfile: async (profile: Partial<Profile> & { id: string }): Promise<Profile> => {
     if (supabase) {
+      const role = (profile.role as string) || 'citizen';
+      const table = role === 'mp' ? 'mp_profiles' : role === 'admin' ? 'admin_profiles' : 'citizen_profiles';
       const { data, error } = await supabase
-        .from('profiles')
+        .from(table)
         .upsert({
           ...profile,
           updated_at: new Date().toISOString()
@@ -72,7 +84,7 @@ export const db = {
         .select()
         .single();
       if (error) {
-        console.error('Supabase profile upsert error, using mockDb fallback:', error.message);
+        console.error(`Supabase ${table} upsert error, using mockDb fallback:`, error.message);
         return mockDb.upsertProfile(profile);
       }
       return data;
@@ -85,16 +97,25 @@ export const db = {
     if (supabase) {
       let query = supabase.from('suggestions').select('*');
       if (filters?.citizen_id) {
-        query = query.eq('citizen_id', filters.citizen_id);
+        const demoCitizenIds = [
+          '3683b237-4045-4b54-96ad-ba7b12f8bc13',
+          '82d75bff-b6e9-4da4-9dcd-bedc3ba10158',
+          '19bbb93b-1c28-4665-8607-6998c700a03b'
+        ];
+        if (demoCitizenIds.includes(filters.citizen_id)) {
+          query = query.in('citizen_id', demoCitizenIds);
+        } else {
+          query = query.eq('citizen_id', filters.citizen_id);
+        }
       }
       if (filters?.category) {
-        query = query.eq('category', filters.category);
+        query = query.ilike('category', `%${filters.category}%`);
       }
       if (filters?.district) {
-        query = query.ilike('district', filters.district);
+        query = query.ilike('district', `%${filters.district}%`);
       }
       if (filters?.village) {
-        query = query.ilike('village', filters.village);
+        query = query.ilike('village', `%${filters.village}%`);
       }
       const { data, error } = await query.order('created_at', { ascending: false });
       if (!error && data) {
@@ -394,18 +415,18 @@ export const db = {
   getStats: async () => {
     const allSugg = await db.getAllSuggestions();
     
-    let profilesData: any[] = [];
+    let citizenCount = 0;
     if (supabase) {
-      const { data, error } = await supabase.from('profiles').select('role');
-      if (!error && data) {
-        profilesData = data;
+      const { count } = await supabase.from('citizen_profiles').select('*', { count: 'exact', head: true });
+      if (count !== null && count !== undefined) {
+        citizenCount = count;
       }
     }
     
     const mockStats = await mockDb.getStats();
-    const citizenCount = profilesData.length > 0 
-      ? profilesData.filter(p => p.role === 'citizen').length 
-      : mockStats.citizenCount;
+    if (!citizenCount) {
+      citizenCount = mockStats.citizenCount;
+    }
 
     const totalSuggestions = allSugg.length;
     const highPriority = allSugg.filter(s => s.urgency === 'critical' || s.urgency === 'high').length;

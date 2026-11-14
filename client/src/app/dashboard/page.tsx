@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/AuthContext';
+import { suggestionService } from '@/services/suggestionService';
 import { 
   FileText, 
   Clock, 
@@ -44,6 +45,7 @@ export default function DashboardHome() {
     if (user) {
       fetchSuggestions();
       fetchSupportedSuggestions();
+      fetchAllSuggestions();
     }
   }, [user]);
 
@@ -64,8 +66,18 @@ export default function DashboardHome() {
       const response = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/api/suggestions?t=${Date.now()}`, { cache: 'no-store' });
       if (response.ok) {
         const data = await response.json();
-        // Filter active constituency projects managed by the MP (planned, under_review, completed)
-        const activeProjects = data.filter((s: Suggestion) => 
+        if (Array.isArray(data) && data.length > 0) {
+          const activeProjects = data.filter((s: Suggestion) => 
+            s.status === 'planned' || s.status === 'under_review' || s.status === 'completed'
+          );
+          setConstituencyProjects(activeProjects);
+          return;
+        }
+      }
+      // Fallback directly to Supabase
+      const sbData = await suggestionService.fetchSuggestions();
+      if (Array.isArray(sbData) && sbData.length > 0) {
+        const activeProjects = (sbData as any[]).filter(s => 
           s.status === 'planned' || s.status === 'under_review' || s.status === 'completed'
         );
         setConstituencyProjects(activeProjects);
@@ -80,10 +92,24 @@ export default function DashboardHome() {
       const response = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/api/suggestions?citizen_id=${user?.id}&t=${Date.now()}`, { cache: 'no-store' });
       if (response.ok) {
         const data = await response.json();
-        setSuggestions(data);
+        if (Array.isArray(data) && data.length > 0) {
+          setSuggestions(data);
+          return;
+        }
+      }
+      // Direct Supabase query fallback
+      const sbData = await suggestionService.fetchSuggestions({ citizen_id: user?.id });
+      if (Array.isArray(sbData) && sbData.length > 0) {
+        setSuggestions(sbData as any);
       }
     } catch (err) {
-      console.error('Failed to load user suggestions from backend:', err);
+      console.warn('Backend fetch failed, falling back to direct Supabase query:', err);
+      try {
+        const sbData = await suggestionService.fetchSuggestions({ citizen_id: user?.id });
+        if (Array.isArray(sbData)) setSuggestions(sbData as any);
+      } catch (sbErr) {
+        console.error('Supabase query failed:', sbErr);
+      }
     } finally {
       setLoading(false);
     }

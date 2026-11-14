@@ -99,19 +99,19 @@ export const authService = {
           console.warn('Using local demo session simulation for seamless access.');
           
           let role: 'citizen' | 'mp' | 'admin' = 'citizen';
-          let userId = 'd7b00000-0000-0000-0000-000000000001';
-          let fullName = 'Aarav Sharma';
+          let userId = email === 'theabhishekyt@gmail.com' 
+            ? '82d75bff-b6e9-4da4-9dcd-bedc3ba10158' 
+            : '3683b237-4045-4b54-96ad-ba7b12f8bc13';
+          let fullName = email === 'theabhishekyt@gmail.com' ? 'Abhishek Kumar' : 'Aarav Sharma';
 
           if (email.startsWith('mp') || (typeof window !== 'undefined' && window.location.pathname.includes('/mp'))) {
             role = 'mp';
-            userId = 'd7b00000-0000-0000-0000-000000000002';
+            userId = 'e76e0ad5-a102-4ef2-bc51-899c3380a249';
             fullName = 'Dr. Vikram Singh';
           } else if (email.startsWith('admin') || (typeof window !== 'undefined' && window.location.pathname.includes('/admin'))) {
             role = 'admin';
-            userId = 'd7b00000-0000-0000-0000-000000000003';
+            userId = '1bcb962f-0d82-4e31-9b3b-6ead54b19cd4';
             fullName = 'Super Administrator';
-          } else if (email === 'theabhishekyt@gmail.com') {
-            fullName = 'Abhishek';
           }
 
           const fakeUser: Partial<User> = {
@@ -202,17 +202,19 @@ export const authService = {
       console.warn('Supabase Auth error caught, using active demo fallback.', err);
       
       let role: 'citizen' | 'mp' | 'admin' = 'citizen';
-      let userId = 'd7b00000-0000-0000-0000-000000000001';
-      let fullName = email.split('@')[0];
+      let userId = email === 'theabhishekyt@gmail.com' 
+        ? '82d75bff-b6e9-4da4-9dcd-bedc3ba10158' 
+        : '3683b237-4045-4b54-96ad-ba7b12f8bc13';
+      let fullName = email === 'theabhishekyt@gmail.com' ? 'Abhishek Kumar' : (email.startsWith('citizen') ? 'Aarav Sharma' : email.split('@')[0]);
 
       // Determine role based on email or assume MP if on MP portal
       if (email.startsWith('mp') || (typeof window !== 'undefined' && window.location.pathname.includes('/mp'))) {
         role = 'mp';
-        userId = 'd7b00000-0000-0000-0000-000000000002';
+        userId = 'e76e0ad5-a102-4ef2-bc51-899c3380a249';
         fullName = 'Dr. Vikram Singh';
       } else if (email.startsWith('admin') || (typeof window !== 'undefined' && window.location.pathname.includes('/admin'))) {
         role = 'admin';
-        userId = 'd7b00000-0000-0000-0000-000000000003';
+        userId = '1bcb962f-0d82-4e31-9b3b-6ead54b19cd4';
         fullName = 'Super Administrator';
       }
 
