@@ -35,7 +35,7 @@ function MPAuthForm() {
     setLoading(true);
     try {
       await login(demoEmail, demoPass);
-      router.push('/mp');
+      window.location.href = '/mp';
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Login failed.';
       setError(msg);
@@ -57,7 +57,7 @@ function MPAuthForm() {
     
     try {
       await login(email, password);
-      router.push('/mp');
+      window.location.href = '/mp';
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Login failed. Please check credentials or role.';
       setError(msg);

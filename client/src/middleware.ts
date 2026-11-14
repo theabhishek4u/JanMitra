@@ -31,16 +31,12 @@ export function middleware(request: NextRequest) {
       const redirectUrl = userRole === 'mp' ? '/mp' : '/dashboard';
       return NextResponse.redirect(new URL(redirectUrl, request.url));
     }
-
-    if (pathname.startsWith('/auth')) {
-      const redirectUrl = userRole === 'admin' ? '/admin' : (userRole === 'mp' ? '/mp' : '/dashboard');
-      return NextResponse.redirect(new URL(redirectUrl, request.url));
-    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/mp/:path*', '/admin/:path*', '/auth/:path*'],
+  matcher: ['/dashboard/:path*', '/mp/:path*', '/admin/:path*'],
 };
+

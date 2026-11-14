@@ -35,7 +35,7 @@ function AdminAuthForm() {
     setLoading(true);
     try {
       await login(demoEmail, demoPass);
-      router.push('/admin');
+      window.location.href = '/admin';
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Login failed.';
       setError(msg);
@@ -57,7 +57,7 @@ function AdminAuthForm() {
     
     try {
       await login(email, password);
-      router.push('/admin');
+      window.location.href = '/admin';
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Login failed. Please check credentials or role.';
       setError(msg);

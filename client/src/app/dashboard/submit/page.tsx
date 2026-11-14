@@ -65,8 +65,12 @@ const QUICK_TEMPLATES = [
     urgency: 'high',
     beneficiaries: '3500',
     village: 'Sigra Ward',
+    block: 'Varanasi City',
     district: 'Varanasi',
     state: 'Uttar Pradesh',
+    pincode: '221002',
+    lat: 25.3191,
+    lng: 82.9754,
     title: 'Urgent Reconstruction of Damaged Main Road with Severe Potholes',
     description: 'The main connecting road has severe potholes measuring over 1 foot deep. During rainfall, complete waterlogging occurs, causing daily motorcycle skidding and serious safety hazards for school buses. Reconstruction with proper drainage is urgently needed.'
   },
@@ -77,8 +81,12 @@ const QUICK_TEMPLATES = [
     urgency: 'critical',
     beneficiaries: '1200',
     village: 'Gomti Nagar',
+    block: 'Lucknow East',
     district: 'Lucknow',
     state: 'Uttar Pradesh',
+    pincode: '226010',
+    lat: 26.8500,
+    lng: 80.9900,
     title: 'Installation of Community RO Drinking Water Plant for Contaminated Pipeline',
     description: 'Tap water in our locality contains excessive dissolved solids and muddy sediment. Over 400 families are forced to purchase private water cans daily. We request installation of a community RO filtration unit.'
   },
@@ -89,8 +97,12 @@ const QUICK_TEMPLATES = [
     urgency: 'medium',
     beneficiaries: '850',
     village: 'Hazratganj',
+    block: 'Lucknow Central',
     district: 'Lucknow',
     state: 'Uttar Pradesh',
+    pincode: '226001',
+    lat: 26.8467,
+    lng: 80.9462,
     title: 'Installation of LED Street Lights along 1.5 KM Residential Stretch',
     description: 'A 1.5 km stretch from the main intersection to our colony has no functional street lighting. Multiple theft incidents and pedestrian difficulties have occurred after sunset. Installation of solar or LED street poles is requested.'
   },
@@ -101,21 +113,45 @@ const QUICK_TEMPLATES = [
     urgency: 'high',
     beneficiaries: '5000',
     village: 'Cantonment',
+    block: 'Varanasi City',
     district: 'Varanasi',
     state: 'Uttar Pradesh',
+    pincode: '221001',
+    lat: 25.3176,
+    lng: 82.9739,
     title: 'Emergency Doctor & Essential Medicines Posting at Local PHC',
     description: 'Our Primary Health Center (PHC) has been operating without a permanent doctor for 3 weeks. Patients traveling 18 km to the district hospital face critical delays. We urge immediate deputation of medical staff and anti-venom/first-aid supplies.'
   }
 ];
 
 const PINCODE_MAP: Record<string, { state: string; district: string; block: string; village: string; lat: number; lng: number }> = {
+  // Lucknow
+  '226001': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Lucknow Central', village: 'Hazratganj', lat: 26.8467, lng: 80.9462 },
+  '226002': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Charbagh', village: 'Charbagh', lat: 26.8324, lng: 80.9238 },
+  '226003': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Chowk', village: 'Chowk', lat: 26.8683, lng: 80.9029 },
+  '226004': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Aminabad', village: 'Aminabad', lat: 26.8488, lng: 80.9276 },
+  '226005': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Mahanagar', village: 'Mahanagar', lat: 26.8778, lng: 80.9525 },
+  '226006': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Aliganj', village: 'Aliganj', lat: 26.8924, lng: 80.9419 },
+  '226007': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Saadatganj', village: 'Saadatganj', lat: 26.8571, lng: 80.8926 },
+  '226008': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Rajajipuram', village: 'Rajajipuram', lat: 26.8402, lng: 80.8845 },
+  '226010': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Lucknow East', village: 'Gomti Nagar', lat: 26.8500, lng: 80.9900 },
+  '226011': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Lucknow Cantt', village: 'Cantonment', lat: 26.8150, lng: 80.9600 },
+  '226012': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Manak Nagar', village: 'Manak Nagar', lat: 26.8050, lng: 80.8950 },
+  '226016': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Indira Nagar', village: 'Indira Nagar', lat: 26.8800, lng: 80.9800 },
+  '226020': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Aashiana', village: 'Aashiana', lat: 26.7925, lng: 80.9150 },
+  '226021': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Jankipuram', village: 'Jankipuram', lat: 26.9150, lng: 80.9350 },
+  '226022': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Vikas Nagar', village: 'Vikas Nagar', lat: 26.8950, lng: 80.9650 },
+  '226024': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Telibagh', village: 'Telibagh', lat: 26.7850, lng: 80.9350 },
+  '226028': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Chinhat', village: 'Chinhat', lat: 26.8800, lng: 81.0400 },
+
+  // Varanasi
   '221001': { state: 'Uttar Pradesh', district: 'Varanasi', block: 'Varanasi City', village: 'Cantonment', lat: 25.3176, lng: 82.9739 },
   '221002': { state: 'Uttar Pradesh', district: 'Varanasi', block: 'Varanasi City', village: 'Sigra Ward', lat: 25.3191, lng: 82.9754 },
+  '221003': { state: 'Uttar Pradesh', district: 'Varanasi', block: 'Kashi', village: 'Chowk Kashi', lat: 25.3109, lng: 83.0107 },
   '221005': { state: 'Uttar Pradesh', district: 'Varanasi', block: 'BHU', village: 'Lanka', lat: 25.2677, lng: 82.9913 },
   '221010': { state: 'Uttar Pradesh', district: 'Varanasi', block: 'Varanasi North', village: 'Shivpur', lat: 25.3582, lng: 82.9621 },
-  '226001': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Lucknow Central', village: 'Hazratganj', lat: 26.8467, lng: 80.9462 },
-  '226010': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Lucknow East', village: 'Gomti Nagar', lat: 26.8500, lng: 80.9900 },
-  '226016': { state: 'Uttar Pradesh', district: 'Lucknow', block: 'Indira Nagar', village: 'Indira Nagar Ward', lat: 26.8800, lng: 80.9800 },
+
+  // Other major cities
   '110001': { state: 'Delhi', district: 'New Delhi', block: 'Connaught Place', village: 'Central Delhi', lat: 28.6139, lng: 77.2090 },
   '201301': { state: 'Uttar Pradesh', district: 'Gautam Buddha Nagar', block: 'Noida', village: 'Sector 18', lat: 28.5355, lng: 77.3910 },
   '208001': { state: 'Uttar Pradesh', district: 'Kanpur Nagar', block: 'Kanpur', village: 'Civil Lines', lat: 26.4499, lng: 80.3319 },
@@ -294,6 +330,24 @@ export default function SubmitSuggestion() {
   const [isSupportingFromModal, setIsSupportingFromModal] = useState(false);
   const [modalSupportSuccess, setModalSupportSuccess] = useState(false);
 
+  // Synchronize location fields when user profile loads
+  useEffect(() => {
+    if (user) {
+      if (user.state) setState(user.state);
+      if (user.district) setDistrict(user.district);
+      if (user.village_ward) setVillage(user.village_ward);
+      if (user.pincode) {
+        setPincode(user.pincode);
+        if (PINCODE_MAP[user.pincode]) {
+          const pm = PINCODE_MAP[user.pincode];
+          setBlock(pm.block);
+          setLat(pm.lat);
+          setLng(pm.lng);
+        }
+      }
+    }
+  }, [user]);
+
   // Reverse Geocode from lat/lng using OpenStreetMap Nominatim
   const reverseGeocodeFromCoords = useCallback(async (latitude: number, longitude: number) => {
     setGeoLoading(true);
@@ -309,11 +363,10 @@ export default function SubmitSuggestion() {
       if (data.error) throw new Error(data.error);
 
       const addr = data.address || {};
-      // Extract fields with smart fallbacks
       const resolvedState = addr.state || addr.region || '';
-      const resolvedDistrict = addr.county || addr.state_district || addr.city_district || addr.city || '';
-      const resolvedBlock = addr.suburb || addr.town || addr.municipality || '';
-      const resolvedVillage = addr.village || addr.hamlet || addr.neighbourhood || addr.residential || addr.suburb || '';
+      const resolvedDistrict = addr.city || addr.county || addr.state_district || addr.city_district || '';
+      const resolvedBlock = addr.suburb || addr.neighbourhood || addr.borough || addr.town || addr.municipality || '';
+      const resolvedVillage = addr.village || addr.suburb || addr.neighbourhood || addr.hamlet || addr.residential || addr.road || resolvedBlock || (resolvedDistrict ? `${resolvedDistrict} Ward` : '');
       const resolvedPincode = addr.postcode || '';
 
       if (resolvedState) setState(resolvedState);
@@ -322,7 +375,7 @@ export default function SubmitSuggestion() {
       if (resolvedVillage) setVillage(resolvedVillage);
       if (resolvedPincode) setPincode(resolvedPincode);
 
-      setGeoSuccess(`Location resolved: ${resolvedVillage || resolvedBlock || resolvedDistrict}, ${resolvedDistrict}, ${resolvedState}`);
+      setGeoSuccess(`Location resolved: ${resolvedVillage || resolvedDistrict}, ${resolvedDistrict}, ${resolvedState}`);
     } catch (err) {
       const errMsg = err instanceof Error ? err.message : 'Failed to resolve location';
       setGeoError(`Reverse geocoding failed: ${errMsg}. You can manually fill in the fields.`);
@@ -331,14 +384,14 @@ export default function SubmitSuggestion() {
     }
   }, []);
 
-  // Geocode from Pincode with instant local cache + Nominatim search
+  // Geocode from Pincode with instant local cache + Indian Postal API + Nominatim search
   const geocodeFromPincode = useCallback(async (code: string) => {
     if (code.length !== 6 || !/^\d{6}$/.test(code)) return;
     setGeoLoading(true);
     setGeoError(null);
     setGeoSuccess(null);
 
-    // Instant local lookup for popular Indian pincodes
+    // 1. Instant local lookup for popular Indian pincodes
     if (PINCODE_MAP[code]) {
       const p = PINCODE_MAP[code];
       setState(p.state);
@@ -352,6 +405,51 @@ export default function SubmitSuggestion() {
       return;
     }
 
+    // 2. High-accuracy Indian Postal Service API
+    try {
+      const postalRes = await fetch(`https://api.postalpincode.in/pincode/${code}`);
+      if (postalRes.ok) {
+        const postalData = await postalRes.json();
+        if (postalData && postalData[0]?.Status === 'Success' && postalData[0].PostOffice?.length > 0) {
+          const po = postalData[0].PostOffice[0];
+          const resolvedState = po.State || '';
+          const resolvedDistrict = po.District || '';
+          const resolvedBlock = po.Block && po.Block !== 'NA' ? po.Block : po.District;
+          const resolvedVillage = po.Name || '';
+
+          if (resolvedState) setState(resolvedState);
+          if (resolvedDistrict) setDistrict(resolvedDistrict);
+          if (resolvedBlock) setBlock(resolvedBlock);
+          if (resolvedVillage) setVillage(resolvedVillage);
+
+          // Background lat/lng fetch via Nominatim
+          fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&postalcode=${code}&country=India&limit=1`,
+            { headers: { 'User-Agent': 'JansunwaiAI/1.0' } }
+          )
+            .then(res => res.json())
+            .then(data => {
+              if (data && data[0]) {
+                const nLat = parseFloat(data[0].lat);
+                const nLng = parseFloat(data[0].lon);
+                if (!isNaN(nLat) && !isNaN(nLng)) {
+                  setLat(nLat);
+                  setLng(nLng);
+                }
+              }
+            })
+            .catch(() => {});
+
+          setGeoSuccess(`Location resolved: ${resolvedVillage}, ${resolvedDistrict}, ${resolvedState}`);
+          setGeoLoading(false);
+          return;
+        }
+      }
+    } catch {
+      // Fall through to Nominatim
+    }
+
+    // 3. Fallback: OpenStreetMap Nominatim
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&postalcode=${code}&country=India&addressdetails=1&limit=1&accept-language=en`,
@@ -364,7 +462,6 @@ export default function SubmitSuggestion() {
       const result = data[0];
       const addr = result.address || {};
 
-      // Set coordinates
       const newLat = parseFloat(result.lat);
       const newLng = parseFloat(result.lon);
       if (!isNaN(newLat) && !isNaN(newLng)) {
@@ -372,18 +469,17 @@ export default function SubmitSuggestion() {
         setLng(newLng);
       }
 
-      // Extract location fields
       const resolvedState = addr.state || addr.region || '';
-      const resolvedDistrict = addr.county || addr.state_district || addr.city_district || addr.city || '';
+      const resolvedDistrict = addr.city || addr.county || addr.state_district || addr.city_district || '';
       const resolvedBlock = addr.suburb || addr.town || addr.municipality || '';
-      const resolvedVillage = addr.village || addr.hamlet || addr.neighbourhood || addr.residential || '';
+      const resolvedVillage = addr.village || addr.suburb || addr.neighbourhood || addr.residential || resolvedBlock || resolvedDistrict;
 
       if (resolvedState) setState(resolvedState);
       if (resolvedDistrict) setDistrict(resolvedDistrict);
       if (resolvedBlock) setBlock(resolvedBlock);
       if (resolvedVillage) setVillage(resolvedVillage);
 
-      setGeoSuccess(`Location resolved from pincode ${code}: ${resolvedDistrict || resolvedBlock}, ${resolvedState}`);
+      setGeoSuccess(`Location resolved from pincode ${code}: ${resolvedVillage}, ${resolvedDistrict}, ${resolvedState}`);
     } catch (err) {
       const errMsg = err instanceof Error ? err.message : 'Pincode lookup failed';
       setGeoError(`Pincode lookup failed: ${errMsg}. Please enter location details manually.`);
@@ -413,17 +509,16 @@ export default function SubmitSuggestion() {
           setLng(newLng);
           await reverseGeocodeFromCoords(newLat, newLng);
         },
-        async () => {
-          console.warn("Geolocation permission denied, simulating Varanasi coordinates.");
-          setLat(25.3176);
-          setLng(82.9739);
-          await reverseGeocodeFromCoords(25.3176, 82.9739);
-        }
+        (err) => {
+          console.warn("Geolocation denied or unavailable:", err.message);
+          setGeoError("GPS permission denied or unavailable. Please click 'Map Picker' or enter your 6-digit Pincode.");
+          setGeoLoading(false);
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
       );
     } else {
-      setLat(25.3176);
-      setLng(82.9739);
-      reverseGeocodeFromCoords(25.3176, 82.9739);
+      setGeoError("Geolocation is not supported by your browser. Please enter your Pincode or use Map Picker.");
+      setGeoLoading(false);
     }
   };
 
@@ -887,6 +982,12 @@ export default function SubmitSuggestion() {
                 setVillage(tmpl.village);
                 setDistrict(tmpl.district);
                 setState(tmpl.state);
+                if (tmpl.block) setBlock(tmpl.block);
+                if (tmpl.pincode) setPincode(tmpl.pincode);
+                if (tmpl.lat && tmpl.lng) {
+                  setLat(tmpl.lat);
+                  setLng(tmpl.lng);
+                }
                 setGeoSuccess(`Location set: ${tmpl.village}, ${tmpl.district}, ${tmpl.state}`);
               }}
               className="p-3 text-left rounded-xl bg-slate-950/70 hover:bg-indigo-600/10 border border-slate-800/80 hover:border-indigo-500/40 transition-all group cursor-pointer"
@@ -1342,16 +1443,18 @@ export default function SubmitSuggestion() {
                 <div className="flex flex-wrap items-center gap-2 pt-1 pb-1">
                   <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Quick Locations:</span>
                   {[
-                    { label: 'Sigra Ward (Varanasi)', village: 'Sigra Ward', district: 'Varanasi', state: 'Uttar Pradesh', pincode: '221002', lat: 25.3191, lng: 82.9754 },
-                    { label: 'Gomti Nagar (Lucknow)', village: 'Gomti Nagar', district: 'Lucknow', state: 'Uttar Pradesh', pincode: '226010', lat: 26.8500, lng: 80.9900 },
-                    { label: 'Hazratganj (Lucknow)', village: 'Hazratganj', district: 'Lucknow', state: 'Uttar Pradesh', pincode: '226001', lat: 26.8467, lng: 80.9462 },
-                    { label: 'Cantonment (Varanasi)', village: 'Cantonment', district: 'Varanasi', state: 'Uttar Pradesh', pincode: '221001', lat: 25.3176, lng: 82.9739 },
+                    { label: 'Gomti Nagar (Lucknow)', village: 'Gomti Nagar', block: 'Lucknow East', district: 'Lucknow', state: 'Uttar Pradesh', pincode: '226010', lat: 26.8500, lng: 80.9900 },
+                    { label: 'Hazratganj (Lucknow)', village: 'Hazratganj', block: 'Lucknow Central', district: 'Lucknow', state: 'Uttar Pradesh', pincode: '226001', lat: 26.8467, lng: 80.9462 },
+                    { label: 'Indira Nagar (Lucknow)', village: 'Indira Nagar', block: 'Indira Nagar', district: 'Lucknow', state: 'Uttar Pradesh', pincode: '226016', lat: 26.8800, lng: 80.9800 },
+                    { label: 'Sigra Ward (Varanasi)', village: 'Sigra Ward', block: 'Varanasi City', district: 'Varanasi', state: 'Uttar Pradesh', pincode: '221002', lat: 25.3191, lng: 82.9754 },
+                    { label: 'Cantonment (Varanasi)', village: 'Cantonment', block: 'Varanasi City', district: 'Varanasi', state: 'Uttar Pradesh', pincode: '221001', lat: 25.3176, lng: 82.9739 },
                   ].map((loc) => (
                     <button
                       key={loc.label}
                       type="button"
                       onClick={() => {
                         setVillage(loc.village);
+                        setBlock(loc.block);
                         setDistrict(loc.district);
                         setState(loc.state);
                         setPincode(loc.pincode);
@@ -1781,7 +1884,7 @@ export default function SubmitSuggestion() {
                 <XCircle className="w-6 h-6" />
               </button>
             </div>
-            <MapPicker initialLat={lat || 25.3176} initialLng={lng || 82.9739} onLocationSelect={handleManualLocationSelect} />
+            <MapPicker initialLat={lat || (district?.toLowerCase().includes('lucknow') ? 26.8467 : 25.3176)} initialLng={lng || (district?.toLowerCase().includes('lucknow') ? 80.9462 : 82.9739)} onLocationSelect={handleManualLocationSelect} />
           </div>
         </div>
       )}

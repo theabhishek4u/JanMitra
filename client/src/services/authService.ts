@@ -329,9 +329,10 @@ export const authService = {
       const activeSession = session || getLocalDemoSession();
       if (activeSession) {
         setCookie('sb-access-token', activeSession.access_token);
-        setCookie('user-role', activeSession.user?.user_metadata?.role || 'citizen');
+        const role = (activeSession.user?.user_metadata?.role as string) || (activeSession.user?.email?.startsWith('mp') ? 'mp' : (activeSession.user?.email?.startsWith('admin') ? 'admin' : 'citizen'));
+        setCookie('user-role', role);
         callback(event, activeSession);
-      } else {
+      } else if (event === 'SIGNED_OUT') {
         deleteCookie('sb-access-token');
         deleteCookie('user-role');
         callback(event, null);

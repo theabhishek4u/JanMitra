@@ -135,7 +135,7 @@ function CitizenAuthForm() {
     setLoading(true);
     try {
       await login(demoEmail, demoPass);
-      router.push('/dashboard');
+      window.location.href = '/dashboard';
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Login failed. Please check credentials.';
       setError(msg);
@@ -159,7 +159,7 @@ function CitizenAuthForm() {
       
       try {
         await login(email, password);
-        router.push('/dashboard');
+        window.location.href = '/dashboard';
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Login failed. Please check credentials.';
         setError(msg);
