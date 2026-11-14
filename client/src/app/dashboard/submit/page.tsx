@@ -765,20 +765,18 @@ export default function SubmitSuggestion() {
   // Dynamic live score calculation (Client-side fallback)
   const completeness = {
     Title: title.trim().length > 3,
+    Description: description.trim().length > 10,
     Location: state.trim().length > 0 && district.trim().length > 0,
     Image: attachments.length > 0,
-    Description: description.trim().length > 10,
-    'Estimated Beneficiaries': beneficiaries.trim().length > 0,
   };
 
   const calculateScore = () => {
-    let score = 10; // base score for urgency/category which are default
-    if (completeness.Title) score += 15;
-    if (completeness.Description) score += 25;
+    let score = 10; // base score for default category/urgency
+    if (completeness.Title) score += 25;
+    if (completeness.Description) score += 35;
     if (completeness.Location) score += 20;
-    if (completeness.Image) score += 15;
-    if (completeness['Estimated Beneficiaries']) score += 15;
-    return score;
+    if (completeness.Image) score += 10;
+    return Math.min(100, score);
   };
 
   const [isScoring, setIsScoring] = useState(false);
@@ -896,7 +894,7 @@ export default function SubmitSuggestion() {
               <div className="mt-2 flex items-center gap-2 text-[9px] text-indigo-400/80 font-semibold">
                 <span>{tmpl.category}</span>
                 <span>•</span>
-                <span>~{tmpl.beneficiaries} Citizens</span>
+                <span className="capitalize">{tmpl.urgency} Urgency</span>
               </div>
             </button>
           ))}
@@ -1108,26 +1106,6 @@ export default function SubmitSuggestion() {
                     <option value="critical">🔴 Critical — Urgent Public Hazard</option>
                   </select>
                   <ChevronDown className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Estimated Beneficiaries */}
-              <div className="space-y-2.5">
-                <label className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-                  <Users className="w-3.5 h-3.5 text-emerald-400" />
-                  People Affected
-                </label>
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-emerald-400 transition-colors">
-                    <Users className="w-4 h-4" />
-                  </div>
-                  <input
-                    type="number"
-                    value={beneficiaries}
-                    onChange={(e) => setBeneficiaries(e.target.value)}
-                    placeholder="e.g. 500"
-                    className="w-full bg-slate-950/70 border border-slate-800/80 rounded-2xl py-4 pl-11 pr-4 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500/60 focus:ring-2 focus:ring-indigo-500/10 transition-all duration-300"
-                  />
                 </div>
               </div>
 
@@ -1595,8 +1573,8 @@ export default function SubmitSuggestion() {
                     <p className="text-xs text-slate-300 bg-slate-900/50 p-2.5 rounded-xl border border-slate-800/50 capitalize">{urgency}</p>
                   </div>
                   <div>
-                    <label className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">People Affected</label>
-                    <p className="text-xs text-slate-300 bg-slate-900/50 p-2.5 rounded-xl border border-slate-800/50">{beneficiaries}</p>
+                    <label className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">AI Impact Analysis</label>
+                    <p className="text-xs text-indigo-300 bg-slate-900/50 p-2.5 rounded-xl border border-slate-800/50">Auto-calculated by AI</p>
                   </div>
                   <div>
                     <label className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Attachments</label>
