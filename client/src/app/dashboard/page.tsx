@@ -42,78 +42,49 @@ export default function DashboardHome() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      fetchSuggestions();
-      fetchSupportedSuggestions();
-      fetchAllSuggestions();
-    }
-  }, [user]);
+    if (!user) return;
+    let isMounted = true;
 
-  const fetchSupportedSuggestions = async () => {
-    try {
-      const res = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/api/profile/${user?.id}/supported`);
-      if (res.ok) {
-        const data = await res.json();
-        setSupportedSuggestions(data);
-      }
-    } catch (err) {
-      console.error('Failed to load supported suggestions:', err);
-    }
-  };
+    const loadDashboardData = async () => {
+      try {
+        setLoading(true);
 
-  const fetchAllSuggestions = async () => {
-    try {
-      const response = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/api/suggestions?t=${Date.now()}`, { cache: 'no-store' });
-      if (response.ok) {
-        const data = await response.json();
-        if (Array.isArray(data) && data.length > 0) {
-          const activeProjects = data.filter((s: Suggestion) => 
+        // Fetch user complaints, constituency projects, and supported items in parallel directly from Supabase
+        const [userComplaints, allProjects, supportedData] = await Promise.all([
+          suggestionService.fetchSuggestions({ citizen_id: user.id }),
+          suggestionService.fetchSuggestions(),
+          suggestionService.fetchSupportedSuggestions(user.id)
+        ]);
+
+        if (!isMounted) return;
+
+        if (Array.isArray(userComplaints)) {
+          setSuggestions(userComplaints as unknown as Suggestion[]);
+        }
+
+        if (Array.isArray(allProjects)) {
+          const activeProjects = (allProjects as unknown as Suggestion[]).filter((s: Suggestion) => 
             s.status === 'planned' || s.status === 'under_review' || s.status === 'completed'
           );
           setConstituencyProjects(activeProjects);
-          return;
         }
-      }
-      // Fallback directly to Supabase
-      const sbData = await suggestionService.fetchSuggestions();
-      if (Array.isArray(sbData) && sbData.length > 0) {
-        const activeProjects = (sbData as any[]).filter(s => 
-          s.status === 'planned' || s.status === 'under_review' || s.status === 'completed'
-        );
-        setConstituencyProjects(activeProjects);
-      }
-    } catch (err) {
-      console.error('Failed to load constituency projects:', err);
-    }
-  };
 
-  const fetchSuggestions = async () => {
-    try {
-      const response = await fetch(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/api/suggestions?citizen_id=${user?.id}&t=${Date.now()}`, { cache: 'no-store' });
-      if (response.ok) {
-        const data = await response.json();
-        if (Array.isArray(data) && data.length > 0) {
-          setSuggestions(data);
-          return;
+        if (Array.isArray(supportedData)) {
+          setSupportedSuggestions(supportedData as unknown as Suggestion[]);
         }
+      } catch (err) {
+        console.error('Failed to load dashboard data:', err);
+      } finally {
+        if (isMounted) setLoading(false);
       }
-      // Direct Supabase query fallback
-      const sbData = await suggestionService.fetchSuggestions({ citizen_id: user?.id });
-      if (Array.isArray(sbData) && sbData.length > 0) {
-        setSuggestions(sbData as any);
-      }
-    } catch (err) {
-      console.warn('Backend fetch failed, falling back to direct Supabase query:', err);
-      try {
-        const sbData = await suggestionService.fetchSuggestions({ citizen_id: user?.id });
-        if (Array.isArray(sbData)) setSuggestions(sbData as any);
-      } catch (sbErr) {
-        console.error('Supabase query failed:', sbErr);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    loadDashboardData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [user?.id]);
 
   // Compute stat counts
   const total = suggestions.length;

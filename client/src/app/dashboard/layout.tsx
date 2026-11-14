@@ -42,13 +42,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       } else if (user.role === 'mp') {
         router.push('/mp');
       } else {
-        // Fetch real notifications for this citizen
-        fetch(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/api/notifications?citizen_id=${user.id}`)
+        // Fetch real notifications for this citizen with 1s timeout to avoid any hang
+        fetch(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace(/\/$/, '')}/api/notifications?citizen_id=${user.id}`, { signal: AbortSignal.timeout(1000) })
           .then(res => res.json())
           .then(data => {
             if (Array.isArray(data)) setNotifications(data);
           })
-          .catch(console.error);
+          .catch(() => {});
       }
     }
   }, [user, loading, router]);

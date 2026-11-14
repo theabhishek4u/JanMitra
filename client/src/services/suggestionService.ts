@@ -53,6 +53,22 @@ export const suggestionService = {
     return data || [];
   },
 
+  fetchSupportedSuggestions: async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('proposal_supports')
+        .select('*, suggestions(*)')
+        .eq('user_id', userId);
+
+      if (!error && data) {
+        return data.map((d: any) => d.suggestions).filter(Boolean);
+      }
+      return [];
+    } catch {
+      return [];
+    }
+  },
+
   submitSuggestion: async (citizenId: string, suggestion: SuggestionInput, file?: File) => {
     // 1. Resolve Category ID (Insert if not exists)
     let categoryId = 1;

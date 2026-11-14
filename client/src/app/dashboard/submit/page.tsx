@@ -1120,7 +1120,7 @@ export default function SubmitSuggestion() {
                   <label className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
                     <MessageSquare className="w-3.5 h-3.5 text-indigo-400" />
                     Description
-                  </label>
+                  </label> 
                   <div className="flex items-center gap-3">
                     <button
                       type="button"

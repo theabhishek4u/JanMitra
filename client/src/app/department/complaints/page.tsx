@@ -79,7 +79,7 @@ export default function DepartmentComplaints() {
         setLoading(true);
         let allSuggestions: Suggestion[] = [];
         try {
-          const res = await fetch(`${API}/api/suggestions`);
+          const res = await fetch(`${API}/api/suggestions`, { signal: AbortSignal.timeout(1500) });
           if (res.ok) {
             allSuggestions = await res.json() as Suggestion[];
           }
