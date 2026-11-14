@@ -44,7 +44,7 @@ export default function DepartmentLayout({ children }: { children: React.ReactNo
 
   const handleLogout = () => {
     localStorage.removeItem('dept-session');
-    router.push('/department/login');
+    window.location.href = '/department/login';
   };
 
   if (pathname === '/department/login') {

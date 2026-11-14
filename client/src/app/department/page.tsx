@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { suggestionService } from '@/services/suggestionService';
 import { 
   ClipboardCheck, Clock, CheckCircle2, ShieldAlert, 
   MapPin, IndianRupee, Search, Calendar, AlertTriangle, ArrowRight,
@@ -81,26 +82,36 @@ export default function DepartmentDashboard() {
     const fetchTasks = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${API}/api/suggestions`);
-        if (res.ok) {
-          const allSuggestions = await res.json() as Suggestion[];
-          
-          // Filter tasks belonging to this department
-          const deptTasks = allSuggestions.filter(s => {
-            const matchesCategory = CATEGORY_MAP[session.id]?.some(
-              cat => s.category.toLowerCase().includes(cat.toLowerCase())
-            );
-            
-            const hasTimelineAssignment = s.timeline?.some(event => 
-              event.notes?.toLowerCase().includes(session.name.toLowerCase()) ||
-              event.notes?.toLowerCase().includes(session.id.toLowerCase())
-            );
-
-            return matchesCategory || hasTimelineAssignment;
-          });
-
-          setTasks(deptTasks);
+        let allSuggestions: Suggestion[] = [];
+        try {
+          const res = await fetch(`${API}/api/suggestions`);
+          if (res.ok) {
+            allSuggestions = await res.json() as Suggestion[];
+          }
+        } catch {
+          // Backend unreachable, fallback to Supabase
         }
+
+        if (!allSuggestions || allSuggestions.length === 0) {
+          const directData = await suggestionService.fetchSuggestions();
+          allSuggestions = (directData as unknown as Suggestion[]) || [];
+        }
+        
+        // Filter tasks belonging to this department
+        const deptTasks = allSuggestions.filter(s => {
+          const matchesCategory = CATEGORY_MAP[session.id]?.some(
+            cat => s.category.toLowerCase().includes(cat.toLowerCase())
+          );
+          
+          const hasTimelineAssignment = s.timeline?.some(event => 
+            event.notes?.toLowerCase().includes(session.name.toLowerCase()) ||
+            event.notes?.toLowerCase().includes(session.id.toLowerCase())
+          );
+
+          return matchesCategory || hasTimelineAssignment;
+        });
+
+        setTasks(deptTasks);
       } catch (err) {
         console.error('Failed to load department tasks:', err);
       } finally {

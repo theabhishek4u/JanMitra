@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { suggestionService } from '@/services/suggestionService';
 import { 
   AlertCircle, CheckCircle2, Clock, Filter, 
   MapPin, Search, Sparkles, Users, X, ChevronRight,
@@ -76,19 +77,29 @@ export default function DepartmentComplaints() {
     const fetchComplaints = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${API}/api/suggestions`);
-        if (res.ok) {
-          const allSuggestions = await res.json() as Suggestion[];
-          
-          const deptComplaints = allSuggestions.filter(s => {
-            const matchesCategory = CATEGORY_MAP[session.id]?.some(
-              cat => s.category.toLowerCase().includes(cat.toLowerCase())
-            );
-            return matchesCategory;
-          });
-
-          setComplaints(deptComplaints);
+        let allSuggestions: Suggestion[] = [];
+        try {
+          const res = await fetch(`${API}/api/suggestions`);
+          if (res.ok) {
+            allSuggestions = await res.json() as Suggestion[];
+          }
+        } catch {
+          // Backend unreachable, fallback to direct Supabase
         }
+
+        if (!allSuggestions || allSuggestions.length === 0) {
+          const directData = await suggestionService.fetchSuggestions();
+          allSuggestions = (directData as unknown as Suggestion[]) || [];
+        }
+        
+        const deptComplaints = allSuggestions.filter(s => {
+          const matchesCategory = CATEGORY_MAP[session.id]?.some(
+            cat => s.category.toLowerCase().includes(cat.toLowerCase())
+          );
+          return matchesCategory;
+        });
+
+        setComplaints(deptComplaints);
       } catch (err) {
         console.error('Failed to load department complaints:', err);
       } finally {

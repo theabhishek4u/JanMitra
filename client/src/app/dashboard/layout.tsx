@@ -260,6 +260,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </Link>
           );
         })}
+        <button
+          onClick={() => logout()}
+          className="flex flex-col items-center justify-center flex-1 h-full py-1 text-center transition-all text-rose-400 hover:text-rose-300 cursor-pointer"
+        >
+          <div className="p-1 rounded-xl">
+            <LogOut className="w-5.5 h-5.5" />
+          </div>
+          <span className="text-[9px] tracking-tight mt-0.5 font-bold">Sign Out</span>
+        </button>
       </nav>
     </div>
   );

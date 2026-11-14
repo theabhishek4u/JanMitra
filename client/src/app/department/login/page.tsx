@@ -63,7 +63,7 @@ export default function DepartmentLoginPage() {
       }));
       setTimeout(() => {
         setLoading(false);
-        router.push('/department');
+        window.location.href = '/department';
       }, 300);
     } else {
       setTimeout(() => {
@@ -91,7 +91,7 @@ export default function DepartmentLoginPage() {
         setLoading(true);
         setTimeout(() => {
           setLoading(false);
-          router.push('/department');
+          window.location.href = '/department';
         }, 300);
       }
     }

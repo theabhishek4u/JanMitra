@@ -225,6 +225,15 @@ export default function MpLayout({ children }: { children: React.ReactNode }) {
                 </Link>
               ))}
             </nav>
+            <div className="p-4 border-t border-slate-800">
+              <button
+                onClick={() => { setMobileMenuOpen(false); logout(); }}
+                className="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-xs text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition-colors w-full cursor-pointer font-bold"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Sign Out</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
