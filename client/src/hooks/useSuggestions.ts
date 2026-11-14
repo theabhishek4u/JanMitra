@@ -11,9 +11,7 @@ export interface Suggestion {
   created_at: string;
   category_id?: number;
   category?: { name: string } | null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ai_analysis?: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ai_priority_scores?: any;
 }
 

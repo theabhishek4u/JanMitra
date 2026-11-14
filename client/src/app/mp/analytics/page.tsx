@@ -292,7 +292,6 @@ export default function AnalyticsPage() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
                 <XAxis dataKey="name" tick={{ fill: '#64748b', fontSize: 9 }} angle={-30} textAnchor="end" height={60} />
                 <YAxis tick={{ fill: '#64748b', fontSize: 10 }} />
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 <Tooltip contentStyle={tooltipStyle} formatter={(value: any) => [`₹${value || 0} Cr`, 'Required']} />
                 <Bar dataKey="valueCrore" radius={[4, 4, 0, 0]}>
                   {budgetChart.map((_, idx) => (

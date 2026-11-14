@@ -6,14 +6,19 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { Crosshair, Loader2 } from 'lucide-react';
 
-// Fix for default marker icon in Leaflet with Next.js/Webpack
-const icon = L.icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-});
+// Safe marker icon creator for Leaflet in Next.js SSR / client
+const getMarkerIcon = () => {
+  if (typeof window === 'undefined') return undefined as unknown as L.Icon;
+  return L.icon({
+    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+  });
+};
+
+const defaultIcon = typeof window !== 'undefined' ? getMarkerIcon() : undefined;
 
 interface MapPickerProps {
   initialLat?: number;
@@ -28,8 +33,9 @@ const LocationMarker = ({ position, setPosition }: { position: L.LatLng | null, 
     },
   });
 
-  return position === null ? null : (
-    <Marker position={position} icon={icon}></Marker>
+  const activeIcon = defaultIcon || getMarkerIcon();
+  return position === null || !activeIcon ? null : (
+    <Marker position={position} icon={activeIcon}></Marker>
   );
 };
 

@@ -576,7 +576,6 @@ export default function BudgetPlannerPage() {
                           <Cell key={`cell-${idx}`} fill={COLORS[idx % COLORS.length]} />
                         ))}
                       </Pie>
-                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                       <Tooltip contentStyle={{ background: '#0d1220', border: '1px solid #1e293b', borderRadius: '12px', fontSize: '11px', color: '#e2e8f0' }} formatter={(value: any) => [`₹${(Number(value || 0) / 100).toFixed(2)} Cr`, 'Allocation']} />
                     </PieChart>
                   </ResponsiveContainer>

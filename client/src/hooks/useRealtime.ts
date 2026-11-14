@@ -6,11 +6,8 @@ export function useRealtime(
   eventConfig: {
     table: string;
     filter?: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onInsert?: (payload: any) => void;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onUpdate?: (payload: any) => void;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onDelete?: (payload: any) => void;
   }
 ) {

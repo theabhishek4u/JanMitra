@@ -90,7 +90,6 @@ export default function SubmitSuggestion() {
   // Audio Recorder States
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const speechRecognitionRef = useRef<any>(null);
   const recordingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const transcriptRef = useRef('');
@@ -358,7 +357,6 @@ export default function SubmitSuggestion() {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     
@@ -392,7 +390,6 @@ export default function SubmitSuggestion() {
       }, 1000);
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     recognition.onresult = (event: any) => {
       let interimTranscript = '';
       let finalTranscript = '';
@@ -419,7 +416,6 @@ export default function SubmitSuggestion() {
       }
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     recognition.onerror = (event: any) => {
       console.error("Speech recognition error", event.error);
       if (event.error !== 'no-speech') {

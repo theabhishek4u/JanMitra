@@ -233,7 +233,6 @@ export default function PriorityEnginePage() {
               <YAxis type="category" dataKey="name" tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 800 }} width={140} axisLine={false} tickLine={false} />
               <Tooltip 
                 contentStyle={{ background: '#0d1220', border: '1px solid #1e293b', borderRadius: '16px', fontSize: '11px', color: '#e2e8f0', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)' }} 
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 formatter={(value: any, _: any, props: any) => [
                   <div className="space-y-1" key="tooltip">
                     <p className="font-extrabold text-amber-400 text-xs">Score: {value}/100</p>

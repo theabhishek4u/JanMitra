@@ -55,6 +55,10 @@ app.get('/health', (req, res) => {
 // Global Error Handler Middleware
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Jansunwai AI Backend is running on port ${PORT}`);
-});
+if (typeof require !== 'undefined' && require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Jansunwai AI Backend is running on port ${PORT}`);
+  });
+}
+
+export default app;
